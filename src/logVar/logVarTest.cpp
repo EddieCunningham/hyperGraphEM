@@ -1,111 +1,256 @@
 #include <iostream>
+#include "logVar.h"
 
-
-void testInit() {
-    logVar a;
-    cout << "Expect: 0 got: " << a << endl;
-    a = 0.7;
-    cout << "Expect: 0.7 got: " << a << endl;
-    a = 6;
-    cout << "Expect: INVALID got: " << a << endl;
+void testAssert(double expected, logVar subject) {
+    if(expected != subject) {
+        string message = "got this wrong";
+        failWithMessage(__FILE__,__LINE__,message);
+    }
 }
 
-void testAdd() {
-    logVar a;
-    logVar b;
+void test_assignLV() {
+    double expected;
+    logVar subject;
 
-    logVar c = a + b;
-    cout << "Expect: 0 got: " << c << endl;
 
-    a = 0.123;
-    c = a + b;
-    cout << "Expect 0.123 got: " << c << endl;
+    testAssert(expected,subject);
+}
+void test_assignD() {
+    double expected;
+    logVar subject;
 
-    c = c + 0.1;
-    cout << "Expect 0.223 got: " << c << endl;
 
-    c += 0.1;
-    cout << "Expect 0.323 got: " << c << endl;
+    testAssert(expected,subject);
+}
+void test_ltLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_ltD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_lteLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_lteD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_gtLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_gtD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_gteLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_gteD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_eqLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_eqD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_neqLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_neqD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_addLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_addD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_incLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_incD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_subLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_subD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_decLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_decD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_mulLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_mulD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_mulincLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_mulincD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_divLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_divD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_divincLV() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
+}
+void test_divincD() {
+    double expected;
+    logVar subject;
+
+
+    testAssert(expected,subject);
 }
 
-void testSubtract() {
-    logVar a;
-    logVar b;
 
-    logVar c = a - b;
-    cout << "Expect: 0 got: " << c << endl;
-
-    a = 0.123;
-    c = a - b;
-    cout << "Expect 0.123 got: " << c << endl;
-
-    c = c - 0.1;
-    cout << "Expect 0.023 got: " << c << endl;
-
-    c -= 0.01;
-    cout << "Expect 0.313 got: " << c << endl;
-}
-
-void testMultiply() {
-    logVar a = 0.2;
-    logVar b = 0.1;
-
-    a = a*b;
-    cout << "Expect 0.02 got: " << a << endl;
-
-    a *= 0.1;
-    cout << "Expect 0.002 got: " << a << endl;
-
-    a *= 0.1;
-    a *= 0.1;
-    a *= b;
-    cout << "Expect 0.000002 got: " << a << endl;
-}
-
-void testDivide() {
-    logVar a = 0.1;
-    logVar b = 0.2;
-
-    a = a/b;
-    cout << "Expect 0.5 got: " << a << endl;
-
-    a /= 1.0;
-    cout << "Expect 0.5 got: " << a << endl;
-}
-
-void testRelation() {
-    logVar a = 0.1;
-    logVar b = 0.2;
-    logVar c = 0.1;
-
-    bool t1 = a < b;
-    cout << "Expected true got: " << t1 << endl;
-
-    bool t2 = b > a;
-    cout << "Expected false got: " << t2 << endl;
-
-    bool t3 = a <= b;
-    cout << "Expected true got: " << t3 << endl;
-
-    bool t4 = b >= a;
-    cout << "Expected false got: " << t4 << endl;
-
-    bool t5 = a == c;
-    cout << "Expected true got: " << t5 << endl;
-
-    bool t6 = b != c;
-    cout << "Expected true got: " << t6 << endl;
-
-}
-
-
-int main() {
-    testInit()
-    testAdd()
-    testSubtract()
-    testMultiply()
-    testDivide()
-    testRelation()
+void allLogVarTest() {
+    test_assignLV();
+    test_assignD();
+    test_ltLV();
+    test_ltD();
+    test_lteLV();
+    test_lteD();
+    test_gtLV();
+    test_gtD();
+    test_gteLV();
+    test_gteD();
+    test_eqLV();
+    test_eqD();
+    test_neqLV();
+    test_neqD();
+    test_addLV();
+    test_addD();
+    test_incLV();
+    test_incD();
+    test_subLV();
+    test_subD();
+    test_decLV();
+    test_decD();
+    test_mulLV();
+    test_mulD();
+    test_mulincLV();
+    test_mulincD();
+    test_divLV();
+    test_divD();
+    test_divincLV();
+    test_divincD();
 }
 
 

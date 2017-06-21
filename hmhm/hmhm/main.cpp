@@ -7,9 +7,13 @@
 //
 
 #include <iostream>
+#include "/Users/Eddie/hyperGraphEM/src/logVar/logVar.h"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+
+    
+    
+    allLogVarTest();
+    
     return 0;
 }
