@@ -1,17 +1,19 @@
 #include <iostream>
+#include <csignal>
+
 
 class failWithMessage {
 
-    _abortFunction() {
+    void _abortFunction() {
         raise(SIGABRT);
     }
 
 public:
-    failWithMessage(string filename, string lineNumber, string message) {
+    failWithMessage(std::string filename, int lineNumber, std::string message) {
 
-        cout << "Failed in " << filename << " at line " << lineNumber << "\n";
-        cout << message << "\n";
-        cout.flush();
+        std::cout << "Failed in " << filename << " at line " << lineNumber << "\n";
+        std::cout << message << "\n";
+        std::cout.flush();
         _abortFunction();
     }
-}
+};

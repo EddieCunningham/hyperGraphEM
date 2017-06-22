@@ -11,9 +11,8 @@
 
 int main(int argc, const char * argv[]) {
 
-    
-    
-    allLogVarTest();
+    logVar a;
+    allLogVarTests();
     
     return 0;
 }

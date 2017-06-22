@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		2CA656CC1EFB23C9000105CF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656CB1EFB23C9000105CF /* main.cpp */; };
+		2CA656D81EFB6468000105CF /* logVarTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656D71EFB6468000105CF /* logVarTest.cpp */; };
+		2CA656DA1EFB646E000105CF /* logVarOperators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656D91EFB646E000105CF /* logVarOperators.cpp */; };
+		2CA656DC1EFB6473000105CF /* logVarMethods.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656DB1EFB6473000105CF /* logVarMethods.cpp */; };
+		2CA656DE1EFB647C000105CF /* errorMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA656DD1EFB647C000105CF /* errorMessages.h */; };
+		2CA656E01EFB6486000105CF /* logVar.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA656DF1EFB6486000105CF /* logVar.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +31,11 @@
 		2CA656C81EFB23C9000105CF /* hmhm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hmhm; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA656CB1EFB23C9000105CF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2CA656D21EFB23D8000105CF /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../src; sourceTree = "<group>"; };
+		2CA656D71EFB6468000105CF /* logVarTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = logVarTest.cpp; path = ../src/logVar/logVarTest.cpp; sourceTree = "<group>"; };
+		2CA656D91EFB646E000105CF /* logVarOperators.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = logVarOperators.cpp; path = ../src/logVar/logVarOperators.cpp; sourceTree = "<group>"; };
+		2CA656DB1EFB6473000105CF /* logVarMethods.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = logVarMethods.cpp; path = ../src/logVar/logVarMethods.cpp; sourceTree = "<group>"; };
+		2CA656DD1EFB647C000105CF /* errorMessages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = errorMessages.h; path = ../src/messages/errorMessages.h; sourceTree = "<group>"; };
+		2CA656DF1EFB6486000105CF /* logVar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = logVar.h; path = ../src/logVar/logVar.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +52,11 @@
 		2CA656BF1EFB23C9000105CF = {
 			isa = PBXGroup;
 			children = (
+				2CA656DF1EFB6486000105CF /* logVar.h */,
+				2CA656DD1EFB647C000105CF /* errorMessages.h */,
+				2CA656DB1EFB6473000105CF /* logVarMethods.cpp */,
+				2CA656D91EFB646E000105CF /* logVarOperators.cpp */,
+				2CA656D71EFB6468000105CF /* logVarTest.cpp */,
 				2CA656CA1EFB23C9000105CF /* hmhm */,
 				2CA656C91EFB23C9000105CF /* Products */,
 			);
@@ -66,6 +81,18 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		2CA656D41EFB60D8000105CF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CA656DE1EFB647C000105CF /* errorMessages.h in Headers */,
+				2CA656E01EFB6486000105CF /* logVar.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		2CA656C71EFB23C9000105CF /* hmhm */ = {
 			isa = PBXNativeTarget;
@@ -74,6 +101,7 @@
 				2CA656C41EFB23C9000105CF /* Sources */,
 				2CA656C51EFB23C9000105CF /* Frameworks */,
 				2CA656C61EFB23C9000105CF /* CopyFiles */,
+				2CA656D41EFB60D8000105CF /* Headers */,
 			);
 			buildRules = (
 			);
@@ -122,6 +150,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA656CC1EFB23C9000105CF /* main.cpp in Sources */,
+				2CA656DA1EFB646E000105CF /* logVarOperators.cpp in Sources */,
+				2CA656DC1EFB6473000105CF /* logVarMethods.cpp in Sources */,
+				2CA656D81EFB6468000105CF /* logVarTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
