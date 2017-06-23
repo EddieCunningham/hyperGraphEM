@@ -19,8 +19,6 @@
 
 using namespace std;
 
-void allLogVarTests();
-
 class LogVar {
 
     double _logAns = UNIQUE_ZERO_ID;

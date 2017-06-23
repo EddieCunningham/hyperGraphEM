@@ -1,7 +1,8 @@
 #ifndef HYPER_GRAPH_H
 #define HYPER_GRAPH_H
 
-#include "nodeIterator.h"
+#include "/Users/Eddie/hyperGraphEM/src/hyperGraph/nodeIterator.h"
+#include "/Users/Eddie/hyperGraphEM/src/messages/errorMessages.h"
 
 class Data {
 public:
@@ -87,31 +88,36 @@ public:
     // e(n)
     // e(n^)
     // e(nv)
-    NodeIterator getParents(Node* node);
-    NodeIterator getChildren(Node* node);
-    vector<Family*> getFamilies(Node* node);
-    vector<Family*> getFamiliesIfParent(Node* node);
-    vector<Family*> getFamiliesIfChild(Node* node);
+    NodeIterator getParents(Node* node) const;
+    NodeIterator getChildren(Node* node) const;
+    vector<Family*> getFamilies(Node* node) const;
+    vector<Family*> getFamiliesIfParent(Node* node) const;
+    vector<Family*> getFamiliesIfChild(Node* node) const;
 
     // n(e)
     // ^(e)
     // v(e)
-    NodeIterator getNodesInFamily(Family* family);
-    NodeIterator getParents(Family* family);
-    NodeIterator getChildren(Family* family);
+    NodeIterator getNodesInFamily(Family* family) const;
+    NodeIterator getParents(Family* family) const;
+    NodeIterator getChildren(Family* family) const;
 
     // !(e,n)
-    NodeIterator getAllFromFamilyExceptFromNode(Family* family, Node* node);
+    NodeIterator getAllFromFamilyExceptFromNode(Family* family, Node* node) const;
 
     // ↑(n)
     // ↑(n)\!(e,n)
-    NodeIterator getNodesUpFrom(Node* node);
-    NodeIterator getNodesUpFromExceptFromFamily(Node* node, Family* family);
+    NodeIterator getNodesUpFrom(Node* node) const;
+    NodeIterator getNodesUpFromExceptFromFamily(Node* node, Family* family) const;
 
     // ↓(n)
     // ↓(n)\!(e,n)    
-    NodeIterator getNodesDownFrom(Node* node);
-    NodeIterator getNodesDownFromExceptFromFamily(Node* node, Family* family);
+    NodeIterator getNodesDownFrom(Node* node) const;
+    NodeIterator getNodesDownFromExceptFromFamily(Node* node, Family* family) const;
+
+    // {}\n
+    // {}\e
+    // void excludeNode(NodeIterator& iterator, Node* node);
+    // void excludeFamily(NodeIterator& iterator, Family* family);
 };
 
 

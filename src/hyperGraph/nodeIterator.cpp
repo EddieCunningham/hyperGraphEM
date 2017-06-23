@@ -1,4 +1,4 @@
-#include "nodeIterator.h"
+#include "/Users/Eddie/hyperGraphEM/src/hyperGraph/nodeIterator.h"
 
 
 NodeIterator::NodeIterator(const queue<Node*>& q, Family* startFam): _queue(q) {

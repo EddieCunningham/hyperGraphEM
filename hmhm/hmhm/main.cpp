@@ -10,9 +10,8 @@
 #include "/Users/Eddie/hyperGraphEM/src/logVar/logVar.h"
 
 int main(int argc, const char * argv[]) {
-
-    logVar a;
-    allLogVarTests();
+    
+    
     
     return 0;
 }

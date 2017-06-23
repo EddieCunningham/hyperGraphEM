@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2CA656CC1EFB23C9000105CF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656CB1EFB23C9000105CF /* main.cpp */; };
-		2CA656D81EFB6468000105CF /* logVarTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656D71EFB6468000105CF /* logVarTest.cpp */; };
 		2CA656DA1EFB646E000105CF /* logVarOperators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656D91EFB646E000105CF /* logVarOperators.cpp */; };
 		2CA656DC1EFB6473000105CF /* logVarMethods.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656DB1EFB6473000105CF /* logVarMethods.cpp */; };
 		2CA656DE1EFB647C000105CF /* errorMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA656DD1EFB647C000105CF /* errorMessages.h */; };
@@ -31,7 +30,6 @@
 		2CA656C81EFB23C9000105CF /* hmhm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hmhm; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA656CB1EFB23C9000105CF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2CA656D21EFB23D8000105CF /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../src; sourceTree = "<group>"; };
-		2CA656D71EFB6468000105CF /* logVarTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = logVarTest.cpp; path = ../src/logVar/logVarTest.cpp; sourceTree = "<group>"; };
 		2CA656D91EFB646E000105CF /* logVarOperators.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = logVarOperators.cpp; path = ../src/logVar/logVarOperators.cpp; sourceTree = "<group>"; };
 		2CA656DB1EFB6473000105CF /* logVarMethods.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = logVarMethods.cpp; path = ../src/logVar/logVarMethods.cpp; sourceTree = "<group>"; };
 		2CA656DD1EFB647C000105CF /* errorMessages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = errorMessages.h; path = ../src/messages/errorMessages.h; sourceTree = "<group>"; };
@@ -56,7 +54,6 @@
 				2CA656DD1EFB647C000105CF /* errorMessages.h */,
 				2CA656DB1EFB6473000105CF /* logVarMethods.cpp */,
 				2CA656D91EFB646E000105CF /* logVarOperators.cpp */,
-				2CA656D71EFB6468000105CF /* logVarTest.cpp */,
 				2CA656CA1EFB23C9000105CF /* hmhm */,
 				2CA656C91EFB23C9000105CF /* Products */,
 			);
@@ -152,7 +149,6 @@
 				2CA656CC1EFB23C9000105CF /* main.cpp in Sources */,
 				2CA656DA1EFB646E000105CF /* logVarOperators.cpp in Sources */,
 				2CA656DC1EFB6473000105CF /* logVarMethods.cpp in Sources */,
-				2CA656D81EFB6468000105CF /* logVarTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

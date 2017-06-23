@@ -1,7 +1,8 @@
 #ifndef NODEITERATOR_H
 #define NODEITERATOR_H
 
-#include "hyperGraph.h"
+#include "/Users/Eddie/hyperGraphEM/src/hyperGraph/hyperGraph.h"
+#include "/Users/Eddie/hyperGraphEM/src/messages/errorMessages.h"
 #include <queue>
 #include <unordered_set>
 
@@ -13,6 +14,7 @@ using namespace std;
 // will basically do a bfs from whatever starting nodes
 // are given until there are none left to add
 class NodeIterator {
+    // friend class DirectedAcyclicHypergraph
     unordered_set<Family*> _visitedFamilies;
     queue<Node*> _queue;
 
@@ -23,7 +25,7 @@ public:
     NodeIterator(const queue<Node*>& q, Family* startFam);
     NodeIterator(const NodeIterator& other);
     void operator=(const NodeIterator& other);
-    Node* getCurrent();
+    Node* getCurrent() const;
     Node* next();
 };
 
