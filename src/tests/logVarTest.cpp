@@ -1,5 +1,6 @@
 #include <iostream>
 #include "/Users/Eddie/hyperGraphEM/src/logVar/logVar.h"
+#include "/Users/Eddie/hyperGraphEM/src/tests/testMain.h"
 
 void testAssert(double expected, LogVar x) {
     if(x != expected) {

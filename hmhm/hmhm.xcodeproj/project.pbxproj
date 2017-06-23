@@ -12,6 +12,13 @@
 		2CA656DC1EFB6473000105CF /* logVarMethods.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656DB1EFB6473000105CF /* logVarMethods.cpp */; };
 		2CA656DE1EFB647C000105CF /* errorMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA656DD1EFB647C000105CF /* errorMessages.h */; };
 		2CA656E01EFB6486000105CF /* logVar.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA656DF1EFB6486000105CF /* logVar.h */; };
+		2CA656E21EFDC81D000105CF /* DAH.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656E11EFDC81D000105CF /* DAH.cpp */; };
+		2CA656E51EFDC827000105CF /* Family.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656E31EFDC827000105CF /* Family.cpp */; };
+		2CA656E61EFDC827000105CF /* hyperGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656E41EFDC827000105CF /* hyperGraph.cpp */; };
+		2CA656E81EFDC82C000105CF /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656E71EFDC82C000105CF /* Node.cpp */; };
+		2CA656EA1EFDC834000105CF /* nodeIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656E91EFDC834000105CF /* nodeIterator.cpp */; };
+		2CA656EC1EFDC83D000105CF /* HMHM.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA656EB1EFDC83D000105CF /* HMHM.h */; };
+		2CA656EE1EFDC845000105CF /* testMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA656ED1EFDC845000105CF /* testMain.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +41,13 @@
 		2CA656DB1EFB6473000105CF /* logVarMethods.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = logVarMethods.cpp; path = ../src/logVar/logVarMethods.cpp; sourceTree = "<group>"; };
 		2CA656DD1EFB647C000105CF /* errorMessages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = errorMessages.h; path = ../src/messages/errorMessages.h; sourceTree = "<group>"; };
 		2CA656DF1EFB6486000105CF /* logVar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = logVar.h; path = ../src/logVar/logVar.h; sourceTree = "<group>"; };
+		2CA656E11EFDC81D000105CF /* DAH.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = DAH.cpp; path = ../src/hyperGraph/DAH.cpp; sourceTree = "<group>"; };
+		2CA656E31EFDC827000105CF /* Family.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Family.cpp; path = ../src/hyperGraph/Family.cpp; sourceTree = "<group>"; };
+		2CA656E41EFDC827000105CF /* hyperGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = hyperGraph.cpp; path = ../src/hyperGraph/hyperGraph.cpp; sourceTree = "<group>"; };
+		2CA656E71EFDC82C000105CF /* Node.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Node.cpp; path = ../src/hyperGraph/Node.cpp; sourceTree = "<group>"; };
+		2CA656E91EFDC834000105CF /* nodeIterator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nodeIterator.cpp; path = ../src/hyperGraph/nodeIterator.cpp; sourceTree = "<group>"; };
+		2CA656EB1EFDC83D000105CF /* HMHM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HMHM.h; path = ../src/EM/HMHM.h; sourceTree = "<group>"; };
+		2CA656ED1EFDC845000105CF /* testMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = testMain.h; path = ../src/tests/testMain.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +64,13 @@
 		2CA656BF1EFB23C9000105CF = {
 			isa = PBXGroup;
 			children = (
+				2CA656ED1EFDC845000105CF /* testMain.h */,
+				2CA656EB1EFDC83D000105CF /* HMHM.h */,
+				2CA656E91EFDC834000105CF /* nodeIterator.cpp */,
+				2CA656E71EFDC82C000105CF /* Node.cpp */,
+				2CA656E31EFDC827000105CF /* Family.cpp */,
+				2CA656E41EFDC827000105CF /* hyperGraph.cpp */,
+				2CA656E11EFDC81D000105CF /* DAH.cpp */,
 				2CA656DF1EFB6486000105CF /* logVar.h */,
 				2CA656DD1EFB647C000105CF /* errorMessages.h */,
 				2CA656DB1EFB6473000105CF /* logVarMethods.cpp */,
@@ -83,6 +104,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CA656EC1EFDC83D000105CF /* HMHM.h in Headers */,
+				2CA656EE1EFDC845000105CF /* testMain.h in Headers */,
 				2CA656DE1EFB647C000105CF /* errorMessages.h in Headers */,
 				2CA656E01EFB6486000105CF /* logVar.h in Headers */,
 			);
@@ -146,9 +169,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CA656EA1EFDC834000105CF /* nodeIterator.cpp in Sources */,
 				2CA656CC1EFB23C9000105CF /* main.cpp in Sources */,
+				2CA656E21EFDC81D000105CF /* DAH.cpp in Sources */,
 				2CA656DA1EFB646E000105CF /* logVarOperators.cpp in Sources */,
 				2CA656DC1EFB6473000105CF /* logVarMethods.cpp in Sources */,
+				2CA656E51EFDC827000105CF /* Family.cpp in Sources */,
+				2CA656E61EFDC827000105CF /* hyperGraph.cpp in Sources */,
+				2CA656E81EFDC82C000105CF /* Node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

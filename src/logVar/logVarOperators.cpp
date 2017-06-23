@@ -6,7 +6,7 @@ void LogVar::_assign(double log_x) {
 }
 void LogVar::operator =(const LogVar& a) {
     double log_x = a._logAns;
-    _assign(a._logAns);
+    _assign(log_x);
 }
 void LogVar::operator =(double a) {
     if(!_checkVal(a)) {

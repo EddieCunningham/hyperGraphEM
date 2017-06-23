@@ -15,15 +15,16 @@ using namespace std;
 // are given until there are none left to add
 class NodeIterator {
     // friend class DirectedAcyclicHypergraph
-    unordered_set<Family*> _visitedFamilies;
     queue<Node*> _queue;
+    unordered_set<Family*> _visitedFamilies;
 
-    void _addFamily(Family* f);
-    void _branchFromNode(Node* n);
+    Node* _getFront() const;
+    void _addFamilyFromNode(Family* f, Node* n);
 
 public:
+    NodeIterator() {}
     NodeIterator(const queue<Node*>& q, Family* startFam);
-    NodeIterator(const NodeIterator& other);
+    NodeIterator(const vector<Node*>& v, Family* startFam);
     void operator=(const NodeIterator& other);
     Node* getCurrent() const;
     Node* next();

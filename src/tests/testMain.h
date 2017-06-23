@@ -4,9 +4,10 @@
 void allLogVarTests();
 void allDAHTests();
 
-
-
-
+void allTests() {
+    // allLogVarTests();
+    allDAHTests();
+}
 
 
 #endif
