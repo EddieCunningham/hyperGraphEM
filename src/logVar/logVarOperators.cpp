@@ -1,31 +1,31 @@
 #include "/Users/Eddie/hyperGraphEM/src/logVar/logVar.h"
 
 
-void logVar::_assign(double log_x) {
+void LogVar::_assign(double log_x) {
     _logAns = log_x;
 }
-void logVar::operator =(const logVar& a) {
+void LogVar::operator =(const LogVar& a) {
     double log_x = a._logAns;
     _assign(a._logAns);
 }
-void logVar::operator =(double a) {
+void LogVar::operator =(double a) {
     if(!_checkVal(a)) {
-        string message = "logVar can only handle values between 0 and 1.  a was: "+to_string(a);
+        string message = "LogVar can only handle values between 0 and 1.  a was: "+to_string(a);
         failWithMessage(__FILE__,__LINE__,message);
     }
     double log_x = _safeLog(a);
     _assign(log_x);
 }
 /* -------------------------------------------------------------------------------- */
-bool logVar::_eq(double log_x) {
+bool LogVar::_eq(double log_x) {
     return _logEqual(_logAns,log_x);
 }
-bool logVar::operator ==(const logVar& a) {
+bool LogVar::operator ==(const LogVar& a) {
     double log_x = a._logAns;
     return _eq(log_x);
 
 }
-bool logVar::operator ==(double a) {
+bool LogVar::operator ==(double a) {
     if(!_checkVal(a)) {
         return false;
     }
@@ -33,7 +33,7 @@ bool logVar::operator ==(double a) {
     return _eq(log_x);
 }
 /* -------------------------------------------------------------------------------- */
-bool logVar::_lt(double log_x) {
+bool LogVar::_lt(double log_x) {
     if(_eq(log_x)) {
         return false;
     }
@@ -45,11 +45,11 @@ bool logVar::_lt(double log_x) {
     }
     return _logAns < log_x;
 }
-bool logVar::operator <(const logVar& a) {
+bool LogVar::operator <(const LogVar& a) {
     double log_x = a._logAns;
     return _lt(log_x);
 }
-bool logVar::operator <(double a) {
+bool LogVar::operator <(double a) {
     if(a > 1.0 + PRECISION) {
         return true;
     }
@@ -61,33 +61,33 @@ bool logVar::operator <(double a) {
     return _lt(log_x);
 }
 /* -------------------------------------------------------------------------------- */
-bool logVar::operator !=(const logVar& a) {
+bool LogVar::operator !=(const LogVar& a) {
     return !((*this) == a);
 
 }
-bool logVar::operator !=(double a) {
+bool LogVar::operator !=(double a) {
     return !((*this) == a);
 }
 /* -------------------------------------------------------------------------------- */
-bool logVar::operator <=(const logVar& a) {
+bool LogVar::operator <=(const LogVar& a) {
     return ((*this) < a) || ((*this) == a);
 }
-bool logVar::operator <=(double a) {
+bool LogVar::operator <=(double a) {
     return ((*this) < a) || ((*this) == a);
 }
 /* -------------------------------------------------------------------------------- */
-bool logVar::operator >(const logVar& a) {
+bool LogVar::operator >(const LogVar& a) {
     return !((*this) <= a);
 }
-bool logVar::operator >(double a) {
+bool LogVar::operator >(double a) {
     return !((*this) <= a);
 }
 /* -------------------------------------------------------------------------------- */
-bool logVar::operator >=(const logVar& a) {
+bool LogVar::operator >=(const LogVar& a) {
     return !((*this) < a);
 
 }
-bool logVar::operator >=(double a) {
+bool LogVar::operator >=(double a) {
     return !((*this) < a);
 }
 /* -------------------------------------------------------------------------------- */
@@ -95,63 +95,63 @@ bool logVar::operator >=(double a) {
 
 
 /* -------------------------------------------------------------------------------- */
-void logVar::operator +=(const logVar& a) {
+void LogVar::operator +=(const LogVar& a) {
     _accumulatePositive(a._logAns);
 }
-void logVar::operator +=(double a) {
+void LogVar::operator +=(double a) {
     if(!_checkVal(a)) {
-        string message = "logVar can only handle values between 0 and 1.  a was: "+to_string(a);
+        string message = "LogVar can only handle values between 0 and 1.  a was: "+to_string(a);
         failWithMessage(__FILE__,__LINE__,message);
     }
     _accumulatePositive(_safeLog(a));
 }
 /* -------------------------------------------------------------------------------- */
-logVar logVar::operator +(const logVar& a) {
-    logVar ans;
+LogVar LogVar::operator +(const LogVar& a) {
+    LogVar ans;
     ans = (*this);
     ans += a;
     return ans;
 }
-logVar logVar::operator +(double a) {
+LogVar LogVar::operator +(double a) {
     if(!_checkVal(a)) {
-        string message = "logVar can only handle values between 0 and 1.  a was: "+to_string(a);
+        string message = "LogVar can only handle values between 0 and 1.  a was: "+to_string(a);
         failWithMessage(__FILE__,__LINE__,message);
     }
-    logVar ans;
+    LogVar ans;
     ans = (*this);
     ans += a;
     return ans;
 }
 /* -------------------------------------------------------------------------------- */
-void logVar::operator -=(const logVar& a) {
+void LogVar::operator -=(const LogVar& a) {
     _accumulateNegative(a._logAns);
 }
-void logVar::operator -=(double a) {
+void LogVar::operator -=(double a) {
     if(!_checkVal(a)) {
-        string message = "logVar can only handle values between 0 and 1.  a was: "+to_string(a);
+        string message = "LogVar can only handle values between 0 and 1.  a was: "+to_string(a);
         failWithMessage(__FILE__,__LINE__,message);
     }
     _accumulateNegative(_safeLog(a));
 }
 /* -------------------------------------------------------------------------------- */
-logVar logVar::operator -(const logVar& a) {
-    logVar ans;
+LogVar LogVar::operator -(const LogVar& a) {
+    LogVar ans;
     ans = (*this);
     ans -= a;
     return ans;
 }
-logVar logVar::operator -(double a) {
+LogVar LogVar::operator -(double a) {
     if(!_checkVal(a)) {
-        string message = "logVar can only handle values between 0 and 1.  a was: "+to_string(a);
+        string message = "LogVar can only handle values between 0 and 1.  a was: "+to_string(a);
         failWithMessage(__FILE__,__LINE__,message);
     }
-    logVar ans;
+    LogVar ans;
     ans = (*this);
     ans -= a;
     return ans;
 }
 /* -------------------------------------------------------------------------------- */
-void logVar::_mul(double log_x) {
+void LogVar::_mul(double log_x) {
     if(_logAns == UNIQUE_ZERO_ID) {
         return;
     }
@@ -162,38 +162,38 @@ void logVar::_mul(double log_x) {
         _logAns += log_x;
     }
 }
-void logVar::operator *=(const logVar& a) {
+void LogVar::operator *=(const LogVar& a) {
     double log_x = a._logAns;
     _mul(log_x);
 }
-void logVar::operator *=(double a) {
+void LogVar::operator *=(double a) {
     if(a < 0) {
-        string message = "logVar can only handle values between 0 and 1.  a was: "+to_string(a);
+        string message = "LogVar can only handle values between 0 and 1.  a was: "+to_string(a);
         failWithMessage(__FILE__,__LINE__,message);
     }
     double log_x = _safeLog(a,false);
     _mul(log_x);
 }
 /* -------------------------------------------------------------------------------- */
-logVar logVar::operator *(const logVar& a) {
-    logVar ans;
+LogVar LogVar::operator *(const LogVar& a) {
+    LogVar ans;
     ans = (*this);
     ans *= a;
     return ans;
 }
-logVar logVar::operator *(double a) {
+LogVar LogVar::operator *(double a) {
     if(a < 0) {
-        string message = "logVar can only handle values between 0 and 1.  a was: "+to_string(a);
+        string message = "LogVar can only handle values between 0 and 1.  a was: "+to_string(a);
         failWithMessage(__FILE__,__LINE__,message);
     }
-    logVar ans;
+    LogVar ans;
     ans = (*this);
     ans *= a;
     return ans;
 }
 
 /* -------------------------------------------------------------------------------- */
-void logVar::_div(double log_x) {
+void LogVar::_div(double log_x) {
     if(log_x == UNIQUE_ZERO_ID) {
         string message = "DIVIDING BY ZERO!";
         failWithMessage(__FILE__,__LINE__,message);
@@ -202,32 +202,32 @@ void logVar::_div(double log_x) {
         return;
     }
     if(log_x < _logAns) {
-        string message = "logVar can only handle values between 0 and 1";
+        string message = "LogVar can only handle values between 0 and 1";
         failWithMessage(__FILE__,__LINE__,message);
     }
     _logAns -= log_x;
 }
-void logVar::operator /=(const logVar& a) {
+void LogVar::operator /=(const LogVar& a) {
     double log_x = a._logAns;
     _div(log_x);
 }
-void logVar::operator /=(double a) {
+void LogVar::operator /=(double a) {
     double log_x = _safeLog(a,false);
     _div(log_x);
 }
 /* -------------------------------------------------------------------------------- */
-logVar logVar::operator /(const logVar& a) {
-    logVar ans;
+LogVar LogVar::operator /(const LogVar& a) {
+    LogVar ans;
     ans = (*this);
     ans /= a;
     return ans;
 }
-logVar logVar::operator /(double a) {
+LogVar LogVar::operator /(double a) {
     if(a < 0) {
-        string message = "logVar can only handle values between 0 and 1.  a was: "+to_string(a);
+        string message = "LogVar can only handle values between 0 and 1.  a was: "+to_string(a);
         failWithMessage(__FILE__,__LINE__,message);
     }
-    logVar ans;
+    LogVar ans;
     ans = (*this);
     ans /= a;
     return ans;
@@ -241,7 +241,7 @@ logVar logVar::operator /(double a) {
 
 
 
-ostream& operator <<(ostream& os, const logVar& lv) {  
+ostream& operator <<(ostream& os, const LogVar& lv) {  
     os << lv.val();
     return os;
 }

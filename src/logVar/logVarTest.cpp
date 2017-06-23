@@ -1,8 +1,7 @@
 #include <iostream>
 #include "/Users/Eddie/hyperGraphEM/src/logVar/logVar.h"
-// #include "/Users/Eddie/hyperGraphEM/src/logVar/logVar.h"
 
-void testAssert(double expected, logVar x) {
+void testAssert(double expected, LogVar x) {
     if(x != expected) {
         string message = "got this wrong";
         cout << x << endl;
@@ -27,29 +26,29 @@ void testAssert(bool expected, bool x) {
 }
 
 void test_assignLV() {
-    logVar x;
-    logVar a;
+    LogVar x;
+    LogVar a;
     a = 0.3;
     x = a;
     testAssert(0.3,x);
 
 
-    logVar b;
+    LogVar b;
     x = b;
     testAssert(0.0,x);
 
-    logVar c;
+    LogVar c;
     c = 0.0;
     x = c;
     testAssert(0.0,x);
 
-    logVar d;
+    LogVar d;
     d = 1.0;
     x = d;
     testAssert(1.0,x);
 }
 void test_assignD() {
-    logVar x;
+    LogVar x;
     x = 0.3;
     testAssert(0.3,x);
 
@@ -60,39 +59,39 @@ void test_assignD() {
     testAssert(1.0,x);
 }
 void test_ltLV() {
-    logVar x;
+    LogVar x;
     bool a = x < 0.3;
     testAssert(true,a);
 
-    logVar b_1;
+    LogVar b_1;
     b_1 = 0.0;
     a = x < b_1;
     testAssert(false,a);
 
     x = 0.3;
-    logVar b_2;
+    LogVar b_2;
     b_2 = 1.0;
     a = x < b_2;
     testAssert(true,a);
 
-    logVar b_3;
+    LogVar b_3;
     b_3 = 0.3;
     a = x < b_3;
     testAssert(false,a);
 
-    logVar b_5;
+    LogVar b_5;
     b_5 = 0.1;
     a = x < b_5;
     testAssert(false,a);
 
-    logVar b_6;
+    LogVar b_6;
     b_6 = 0.0;
     a = x < b_6;
     testAssert(false,a);
 
 }
 void test_ltD() {
-    logVar x;
+    LogVar x;
     bool a = x < 0.3;
     testAssert(true,a);
 
@@ -119,39 +118,39 @@ void test_ltD() {
     testAssert(false,a);
 }
 void test_lteLV() {
-    logVar x;
+    LogVar x;
     bool a = x <= 0.3;
     testAssert(true,a);
 
-    logVar b_1;
+    LogVar b_1;
     b_1 = 0.0;
     a = x <= b_1;
     testAssert(true,a);
 
     x = 0.3;
-    logVar b_2;
+    LogVar b_2;
     b_2 = 1.0;
     a = x <= b_2;
     testAssert(true,a);
 
-    logVar b_3;
+    LogVar b_3;
     b_3 = 0.3;
     a = x <= b_3;
     testAssert(true,a);
 
-    logVar b_5;
+    LogVar b_5;
     b_5 = 0.1;
     a = x <= b_5;
     testAssert(false,a);
 
-    logVar b_6;
+    LogVar b_6;
     b_6 = 0.0;
     a = x <= b_6;
     testAssert(false,a);
 
 }
 void test_lteD() {
-    logVar x;
+    LogVar x;
     bool a = x <= 0.3;
     testAssert(true,a);
 
@@ -178,39 +177,39 @@ void test_lteD() {
     testAssert(false,a);
 }
 void test_gtLV() {
-    logVar x;
+    LogVar x;
     bool a = x > 0.3;
     testAssert(false,a);
 
-    logVar b_1;
+    LogVar b_1;
     b_1 = 0.0;
     a = x > b_1;
     testAssert(false,a);
 
     x = 0.3;
-    logVar b_2;
+    LogVar b_2;
     b_2 = 1.0;
     a = x > b_2;
     testAssert(false,a);
 
-    logVar b_3;
+    LogVar b_3;
     b_3 = 0.3;
     a = x > b_3;
     testAssert(false,a);
 
-    logVar b_5;
+    LogVar b_5;
     b_5 = 0.1;
     a = x > b_5;
     testAssert(true,a);
 
-    logVar b_6;
+    LogVar b_6;
     b_6 = 0.0;
     a = x > b_6;
     testAssert(true,a);
 
 }
 void test_gtD() {
-    logVar x;
+    LogVar x;
     bool a = x > 0.3;
     testAssert(false,a);
 
@@ -237,39 +236,39 @@ void test_gtD() {
     testAssert(true,a);
 }
 void test_gteLV() {
-    logVar x;
+    LogVar x;
     bool a = x >= 0.3;
     testAssert(false,a);
 
-    logVar b_1;
+    LogVar b_1;
     b_1 = 0.0;
     a = x >= b_1;
     testAssert(true,a);
 
     x = 0.3;
-    logVar b_2;
+    LogVar b_2;
     b_2 = 1.0;
     a = x >= b_2;
     testAssert(false,a);
 
-    logVar b_3;
+    LogVar b_3;
     b_3 = 0.3;
     a = x >= b_3;
     testAssert(true,a);
 
-    logVar b_5;
+    LogVar b_5;
     b_5 = 0.1;
     a = x >= b_5;
     testAssert(true,a);
 
-    logVar b_6;
+    LogVar b_6;
     b_6 = 0.0;
     a = x >= b_6;
     testAssert(true,a);
 
 }
 void test_gteD() {
-    logVar x;
+    LogVar x;
     bool a = x >= 0.3;
     testAssert(false,a);
 
@@ -296,8 +295,8 @@ void test_gteD() {
     testAssert(true,a);
 }
 void test_eqLV() {
-    logVar x;
-    logVar a;
+    LogVar x;
+    LogVar a;
     a = 0.0;
     bool comp = x == a;
     testAssert(true,comp);
@@ -315,7 +314,7 @@ void test_eqLV() {
     testAssert(false,comp);
 }
 void test_eqD() {
-    logVar x;
+    LogVar x;
     double a = 0.0;
     bool comp = x == a;
     testAssert(true,comp);
@@ -333,8 +332,8 @@ void test_eqD() {
     testAssert(false,comp);
 }
 void test_neqLV() {
-    logVar x;
-    logVar a;
+    LogVar x;
+    LogVar a;
     a = 0.0;
     bool comp = x != a;
     testAssert(false,comp);
@@ -352,7 +351,7 @@ void test_neqLV() {
     testAssert(true,comp);
 }
 void test_neqD() {
-    logVar x;
+    LogVar x;
     double a = 0.0;
     bool comp = x != a;
     testAssert(false,comp);
@@ -370,9 +369,9 @@ void test_neqD() {
     testAssert(true,comp);
 }
 void test_addLV() {
-    logVar x;
-    logVar a;
-    logVar b;
+    LogVar x;
+    LogVar a;
+    LogVar b;
     b = x + a;
     testAssert(0,b);
 
@@ -391,9 +390,9 @@ void test_addLV() {
     testAssert(1.0,b);
 }
 void test_addD() {
-    logVar x;
+    LogVar x;
     double a = 0.0;
-    logVar b;
+    LogVar b;
     b = x + a;
     testAssert(0,b);
 
@@ -412,8 +411,8 @@ void test_addD() {
     testAssert(1.0,b);
 }
 void test_incLV() {
-    logVar x;
-    logVar a;
+    LogVar x;
+    LogVar a;
     x += a;
     testAssert(0,x);
 
@@ -431,7 +430,7 @@ void test_incLV() {
     testAssert(1.0,x);
 }
 void test_incD() {
-    logVar x;
+    LogVar x;
     double a = 0.0;
     x += a;
     testAssert(0,x);
@@ -451,9 +450,9 @@ void test_incD() {
     testAssert(1.0,x);
 }
 void test_subLV() {
-    logVar x;
-    logVar a;
-    logVar b;
+    LogVar x;
+    LogVar a;
+    LogVar b;
     b = a - x;
     testAssert(0,b);
 
@@ -477,9 +476,9 @@ void test_subLV() {
     testAssert(0.9,b);
 }
 void test_subD() {
-    logVar x;
+    LogVar x;
     double a = 0.0;
-    logVar b;
+    LogVar b;
     b = x - a;
     testAssert(0,b);
     
@@ -500,8 +499,8 @@ void test_subD() {
     testAssert(0.9,b);
 }
 void test_decLV() {
-    logVar x;
-    logVar a;
+    LogVar x;
+    LogVar a;
     x -= a;
     testAssert(0,x);
 
@@ -523,7 +522,7 @@ void test_decLV() {
     testAssert(0.8,x);
 }
 void test_decD() {
-    logVar x;
+    LogVar x;
     double a = 0.0;
     x -= a;
     testAssert(0,x);
@@ -546,9 +545,9 @@ void test_decD() {
     testAssert(0.8,x);
 }
 void test_mulLV() {
-    logVar x;
-    logVar a;
-    logVar b;
+    LogVar x;
+    LogVar a;
+    LogVar b;
     b = x * a;
     testAssert(0,b);
 
@@ -571,9 +570,9 @@ void test_mulLV() {
     testAssert(pow(10,-10),b);
 }
 void test_mulD() {
-    logVar x;
+    LogVar x;
     double a = 0.0;
-    logVar b;
+    LogVar b;
     b = x * a;
     testAssert(0,b);
 
@@ -596,8 +595,8 @@ void test_mulD() {
     testAssert(pow(10,-10),b);
 }
 void test_mulincLV() {
-    logVar x;
-    logVar a;
+    LogVar x;
+    LogVar a;
     x *= a;
     testAssert(0,x);
 
@@ -615,7 +614,7 @@ void test_mulincLV() {
     testAssert(0.09,x);
 }
 void test_mulincD() {
-    logVar x;
+    LogVar x;
     double a = 0.0;
     x *= a;
     testAssert(0,x);
@@ -635,10 +634,10 @@ void test_mulincD() {
 }
 void test_divLV() {
 
-    logVar x;
-    logVar a;
+    LogVar x;
+    LogVar a;
     a = 0.4;
-    logVar b;
+    LogVar b;
     b = x / a;
     testAssert(0.0,b);
 
@@ -654,9 +653,9 @@ void test_divLV() {
 }
 void test_divD() {
 
-    logVar x;
+    LogVar x;
     double a = 0.4;
-    logVar b = x / a;
+    LogVar b = x / a;
     testAssert(0.0,b);
 
     a = 1.0;
@@ -677,8 +676,8 @@ void test_divD() {
     b = x / a;
 }
 void test_divincLV() {
-    logVar x;
-    logVar a;
+    LogVar x;
+    LogVar a;
     a = 0.4;
     x /= a;
     testAssert(0.0,x);
@@ -693,7 +692,7 @@ void test_divincLV() {
     testAssert(0.5,x);
 }
 void test_divincD() {
-    logVar x;
+    LogVar x;
     double a = 0.4;
     x /= a;
     testAssert(0.0,x);

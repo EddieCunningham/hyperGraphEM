@@ -21,7 +21,7 @@ using namespace std;
 
 void allLogVarTests();
 
-class logVar {
+class LogVar {
 
     double _logAns = UNIQUE_ZERO_ID;
 
@@ -53,58 +53,58 @@ class logVar {
 
 public:
 
-    logVar(){}
+    LogVar(){}
 
-    void operator =(const logVar& a);
+    void operator =(const LogVar& a);
     void operator =(double a);
 
-    bool operator <(const logVar& a);
+    bool operator <(const LogVar& a);
     bool operator <(double a);
 
-    bool operator <=(const logVar& a);
+    bool operator <=(const LogVar& a);
     bool operator <=(double a);
 
-    bool operator >(const logVar& a);
+    bool operator >(const LogVar& a);
     bool operator >(double a);
 
-    bool operator >=(const logVar& a);
+    bool operator >=(const LogVar& a);
     bool operator >=(double a);
 
-    bool operator ==(const logVar& a);
+    bool operator ==(const LogVar& a);
     bool operator ==(double a);
 
-    bool operator !=(const logVar& a);
+    bool operator !=(const LogVar& a);
     bool operator !=(double a);
 
-    logVar operator +(const logVar& a);
-    logVar operator +(double a);
+    LogVar operator +(const LogVar& a);
+    LogVar operator +(double a);
 
-    void operator +=(const logVar& a);
+    void operator +=(const LogVar& a);
     void operator +=(double a);
 
-    logVar operator -(const logVar& a);
-    logVar operator -(double a);
+    LogVar operator -(const LogVar& a);
+    LogVar operator -(double a);
 
-    void operator -=(const logVar& a);
+    void operator -=(const LogVar& a);
     void operator -=(double a);
 
-    logVar operator *(const logVar& a);
-    logVar operator *(double a);
+    LogVar operator *(const LogVar& a);
+    LogVar operator *(double a);
 
-    void operator *=(const logVar& a);
+    void operator *=(const LogVar& a);
     void operator *=(double a);
 
-    logVar operator /(const logVar& a);
-    logVar operator /(double a);
+    LogVar operator /(const LogVar& a);
+    LogVar operator /(double a);
 
-    void operator /=(const logVar& a);
+    void operator /=(const LogVar& a);
     void operator /=(double a);
 
     double val()const;
 };
 
 
-ostream& operator <<(ostream& os, const logVar& lv);
+ostream& operator <<(ostream& os, const LogVar& lv);
 
 
 
