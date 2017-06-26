@@ -3,33 +3,45 @@
 
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/nodeIterator.h"
 #include "/Users/Eddie/hyperGraphEM/src/messages/errorMessages.h"
+#include <vector>
+#include <unordered_set>
+
+using namespace std;
 
 class Data {
 public:
     virtual int getData(string selector);
-    virtual double getData(string selector);
 };
 
 class Node;
 class Family;
 class DirectedAcyclicHypergraph;
+class NodeIterator;
 
 /* --------------------------------------- */
 
 class Node {
+    friend class Family;
     friend class NodeIterator;
+    friend class DirectedAcyclicHypergraph;
 
-    Family* _upFamily;
+    vector<Family*> _upFamilies;
     vector<Family*> _downFamilies;
     Data* _data;
 
-    Family* _getUpFamily() const;
+    void _becomeParentOfFamily(Family* family);
+    void _becomeChildOfFamily(Family* family);
+
+    vector<Family*> _getUpFamilies() const;
     vector<Family*> _getDownFamilies() const;
     vector<Family*> _getFamilies() const;
     Data* _getData() const;
 
 public:
+    int id;
+
     Node(): _data(nullptr) {}
+    Node(int id): _data(nullptr),id(id) {}
     Node(Data* data): _data(data) {}
 };
 
@@ -37,6 +49,7 @@ public:
 
 class Family {    
     friend class NodeIterator;
+    friend class DirectedAcyclicHypergraph;
 
     vector<Node*> _parents;
     vector<Node*> _children;
@@ -45,7 +58,9 @@ class Family {
     vector<Node*> _getChildren() const;
     vector<Node*> _getNodes() const;
 public:
-    Family(vector<Node*> parents, vector<Node*> children):_parents(parents),_children(children){}
+    int id;
+
+    Family(vector<Node*> parents, vector<Node*> children);
 };
 
 /* --------------------------------------- */
@@ -62,18 +77,18 @@ public:
     // e(n)
     // e(n^)
     // e(nv)
-    NodeIterator getParents(Node* node) const;
-    NodeIterator getChildren(Node* node) const;
-    vector<Family*> getFamilies(Node* node) const;
-    vector<Family*> getFamiliesIfParent(Node* node) const;
-    vector<Family*> getFamiliesIfChild(Node* node) const;
+    unordered_set<Node*> getParents(Node* node) const;
+    unordered_set<Node*> getChildren(Node* node) const;
+    unordered_set<Family*> getFamilies(Node* node) const;
+    unordered_set<Family*> getFamiliesIfParent(Node* node) const;
+    unordered_set<Family*> getFamiliesIfChild(Node* node) const;
 
     // n(e)
     // ^(e)
     // v(e)
-    NodeIterator getNodesInFamily(Family* family) const;
-    NodeIterator getParents(Family* family) const;
-    NodeIterator getChildren(Family* family) const;
+    unordered_set<Node*> getNodesInFamily(Family* family) const;
+    unordered_set<Node*> getParents(Family* family) const;
+    unordered_set<Node*> getChildren(Family* family) const;
 
     // !(e,n)
     NodeIterator getAllFromFamilyExceptFromNode(Family* family, Node* node) const;
@@ -87,15 +102,8 @@ public:
     // ↓(n)\!(e,n)    
     NodeIterator getNodesDownFrom(Node* node) const;
     NodeIterator getNodesDownFromExceptFromFamily(Node* node, Family* family) const;
-
-    // {}\n
-    // {}\e
-    // void excludeNode(NodeIterator& iterator, Node* node);
-    // void excludeFamily(NodeIterator& iterator, Family* family);
 };
 
-
-ostream& operator <<(ostream& os, const Family* family);
 
 #endif
 

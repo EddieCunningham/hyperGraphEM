@@ -3,11 +3,9 @@
 
 void allLogVarTests();
 void allDAHTests();
+void allDAHEMTests();
 
-void allTests() {
-    // allLogVarTests();
-    allDAHTests();
-}
+void allTests();
 
 
 #endif

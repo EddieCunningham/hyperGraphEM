@@ -1,3 +1,6 @@
+#ifndef ERRORMESSAGES_H
+#define ERRORMESSAGES_H
+
 #include <iostream>
 #include <csignal>
 
@@ -17,3 +20,6 @@ public:
         _abortFunction();
     }
 };
+
+
+#endif

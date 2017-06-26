@@ -1,19 +1,19 @@
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/nodeIterator.h"
 
 
-NodeIterator::NodeIterator(const queue<Node*>& q, Family* startFam): _queue(q) {
-    _visitedFamilies.insert(startFam);
+NodeIterator::NodeIterator(const queue<Node*>& q, const vector<Family*>& startFams): _queue(q) {
+    _visitedFamilies.insert(startFams.begin(),startFams.end());
 }
 
-NodeIterator(const vector<Node*>& v, Family* startFam) {
+NodeIterator::NodeIterator(const unordered_set<Node*>& v, const vector<Family*>& startFams) {
     _queue = queue<Node*>();
     for(Node* node: v) {
         _queue.push(node);
     }
-    _visitedFamilies.insert(startFam);
+    _visitedFamilies.insert(startFams.begin(),startFams.end());
 }
 
-void operator=(const NodeIterator& other) {
+void NodeIterator::operator =(const NodeIterator& other) {
     _queue = other._queue;
     _visitedFamilies = other._visitedFamilies;
 }
@@ -41,7 +41,7 @@ void NodeIterator::_addFamilyFromNode(Family* f, Node* n) {
     }
 }
 
-NodeIterator& NodeIterator::next() {
+Node* NodeIterator::next() {
     // returns nullptr when at end
 
     Node* lastNode = _queue.front();

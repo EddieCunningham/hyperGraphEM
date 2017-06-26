@@ -1,53 +1,145 @@
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/hyperGraph.h"
 
 
-NodeIterator DirectedAcyclicHypergraph::getParents(Node* node) const {
-    Family* family = node->_getUpFamily();
+
+unordered_set<Node*> DirectedAcyclicHypergraph::getParents(Node* node) const {
+
+    vector<Family*> upFamilies = node->_getUpFamilies();
+
+    unordered_set<Node*> ans;
+    for(Family* family: upFamilies) {
+        vector<Node*> parents = family->_getParents();
+        ans.insert(parents.begin(),parents.end());
+    }
+    return ans;
+}
+
+unordered_set<Node*> DirectedAcyclicHypergraph::getChildren(Node* node) const {
+
+    vector<Family*> downFamilies = node->_getDownFamilies();
+
+    unordered_set<Node*> ans;
+    for(Family* family: downFamilies) {
+        vector<Node*> children = family->_getChildren();
+        ans.insert(children.begin(),children.end());
+    }
+    return ans;
+}
+
+unordered_set<Family*> DirectedAcyclicHypergraph::getFamiliesIfParent(Node* node) const {
+    
+    vector<Family*> downFamilies = node->_getDownFamilies();
+    unordered_set<Family*> ans;
+    ans.insert(downFamilies.begin(),downFamilies.end());
+    return ans;
+}
+unordered_set<Family*> DirectedAcyclicHypergraph::getFamiliesIfChild(Node* node) const {
+    
+    vector<Family*> upFamilies = node->_getUpFamilies();
+    unordered_set<Family*> ans;
+    ans.insert(upFamilies.begin(),upFamilies.end());
+    return ans;
+}
+
+unordered_set<Family*> DirectedAcyclicHypergraph::getFamilies(Node* node) const {
+
+    vector<Family*> downFamilies = node->_getDownFamilies();
+    vector<Family*> upFamilies = node->_getUpFamilies();
+
+    unordered_set<Family*> ans;
+    ans.insert(downFamilies.begin(),downFamilies.end());
+    ans.insert(upFamilies.begin(),upFamilies.end());
+
+    return ans;
+}
+
+
+unordered_set<Node*> DirectedAcyclicHypergraph::getParents(Family* family) const {
     vector<Node*> parents = family->_getParents();
-    NodeIterator iterator(parents,family);
-    return iterator;
+    unordered_set<Node*> ans;
+    ans.insert(parents.begin(),parents.end());
+    return ans;
 }
-
-NodeIterator DirectedAcyclicHypergraph::getChildren(Node* node) const {
-    Family* family = node->_getUpFamily();
+unordered_set<Node*> DirectedAcyclicHypergraph::getChildren(Family* family) const {
     vector<Node*> children = family->_getChildren();
-    NodeIterator iterator(children,family);
-    return iterator;
+    unordered_set<Node*> ans;
+    ans.insert(children.begin(),children.end());
+    return ans;
 }
 
-vector<Family*> DirectedAcyclicHypergraph::getFamilies(Node* node) const {
-    return vector<Family*>({});
+unordered_set<Node*> DirectedAcyclicHypergraph::getNodesInFamily(Family* family) const {
+    
+    vector<Node*> parents = family->_getParents();
+    vector<Node*> children = family->_getChildren();
+
+    unordered_set<Node*> ans;
+    ans.insert(parents.begin(),parents.end());
+    ans.insert(children.begin(),children.end());
+
+    return ans;
 }
 
-vector<Family*> DirectedAcyclicHypergraph::getFamiliesIfParent(Node* node) const {
-    return vector<Family*>({});
-}
-vector<Family*> DirectedAcyclicHypergraph::getFamiliesIfChild(Node* node) const {
-    return vector<Family*>({});
-}
-NodeIterator DirectedAcyclicHypergraph::getNodesInFamily(Family* family) const {
-    return NodeIterator();
-}
-NodeIterator DirectedAcyclicHypergraph::getParents(Family* family) const {
-    return NodeIterator();
-}
-NodeIterator DirectedAcyclicHypergraph::getChildren(Family* family) const {
-    return NodeIterator();
-}
 NodeIterator DirectedAcyclicHypergraph::getAllFromFamilyExceptFromNode(Family* family, Node* node) const {
-    return NodeIterator();
-}
-NodeIterator DirectedAcyclicHypergraph::getNodesUpFrom(Node* node) const {
-    return NodeIterator();
-}
-NodeIterator DirectedAcyclicHypergraph::getNodesUpFromExceptFromFamily(Node* node, Family* family) const {
-    return NodeIterator();
-}
-NodeIterator DirectedAcyclicHypergraph::getNodesDownFrom(Node* node) const {
-    return NodeIterator();
-}
-NodeIterator DirectedAcyclicHypergraph::getNodesDownFromExceptFromFamily(Node* node, Family* family) const {
-    return NodeIterator();
+
+    unordered_set<Node*> startNodes = getNodesInFamily(family);
+    startNodes.erase(node);
+    NodeIterator toReturn(startNodes,vector<Family*>({family}));
+
+    return toReturn;
 }
 
+NodeIterator DirectedAcyclicHypergraph::getNodesUpFromExceptFromFamily(Node* node, Family* family) const {
+    vector<Family*> startFamilies = vector<Family*>();
+    unordered_set<Node*> startNodes = unordered_set<Node*>();
+
+    vector<Family*> upFamilies = node->_getUpFamilies();
+    for(Family* fam: upFamilies) {
+
+        if(fam == family) {
+            continue;
+        }
+
+        vector<Node*> nodes = fam->_getNodes();
+        startNodes.insert(nodes.begin(),nodes.end());
+        startFamilies.push_back(fam);
+    }
+
+    startNodes.erase(node);
+    NodeIterator toReturn(startNodes,startFamilies);
+
+    return toReturn;
+}
+
+NodeIterator DirectedAcyclicHypergraph::getNodesUpFrom(Node* node) const {
+    NodeIterator toReturn = getNodesUpFromExceptFromFamily(node,nullptr);
+    return toReturn;
+}
+
+
+NodeIterator DirectedAcyclicHypergraph::getNodesDownFromExceptFromFamily(Node* node, Family* family) const {
+    vector<Family*> startFamilies = vector<Family*>();
+    unordered_set<Node*> startNodes = unordered_set<Node*>();
+
+    vector<Family*> downFamilies = node->_getDownFamilies();
+    for(Family* fam: downFamilies) {
+
+        if(fam == family) {
+            continue;
+        }
+
+        vector<Node*> nodes = fam->_getNodes();
+        startNodes.insert(nodes.begin(),nodes.end());
+        startFamilies.push_back(fam);
+    }
+
+    startNodes.erase(node);
+    NodeIterator toReturn(startNodes,startFamilies);
+
+    return toReturn;
+}
+
+NodeIterator DirectedAcyclicHypergraph::getNodesDownFrom(Node* node) const {
+    NodeIterator toReturn = getNodesDownFromExceptFromFamily(node,nullptr);
+    return toReturn;
+}
 

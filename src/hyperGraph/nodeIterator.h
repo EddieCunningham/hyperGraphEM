@@ -8,6 +8,8 @@
 
 using namespace std;
 
+class Node;
+class Family;
 
 // non-stl iterator that will
 // do the selections needed on a hypergraph.
@@ -23,9 +25,9 @@ class NodeIterator {
 
 public:
     NodeIterator() {}
-    NodeIterator(const queue<Node*>& q, Family* startFam);
-    NodeIterator(const vector<Node*>& v, Family* startFam);
-    void operator=(const NodeIterator& other);
+    NodeIterator(const queue<Node*>& q, const vector<Family*>& startFams);
+    NodeIterator(const unordered_set<Node*>& v, const vector<Family*>& startFams);
+    void operator =(const NodeIterator& other);
     Node* getCurrent() const;
     Node* next();
 };

@@ -19,6 +19,9 @@
 		2CA656EA1EFDC834000105CF /* nodeIterator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656E91EFDC834000105CF /* nodeIterator.cpp */; };
 		2CA656EC1EFDC83D000105CF /* HMHM.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA656EB1EFDC83D000105CF /* HMHM.h */; };
 		2CA656EE1EFDC845000105CF /* testMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA656ED1EFDC845000105CF /* testMain.h */; };
+		2CA656F21EFDC9FC000105CF /* hyperGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CA656F11EFDC9FC000105CF /* hyperGraph.h */; };
+		2CA656F41EFDCAEC000105CF /* hyperGraphTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656F31EFDCAEC000105CF /* hyperGraphTests.cpp */; };
+		2CA656F61EFDCC3B000105CF /* testMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA656F51EFDCC3B000105CF /* testMain.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,6 +51,9 @@
 		2CA656E91EFDC834000105CF /* nodeIterator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nodeIterator.cpp; path = ../src/hyperGraph/nodeIterator.cpp; sourceTree = "<group>"; };
 		2CA656EB1EFDC83D000105CF /* HMHM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HMHM.h; path = ../src/EM/HMHM.h; sourceTree = "<group>"; };
 		2CA656ED1EFDC845000105CF /* testMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = testMain.h; path = ../src/tests/testMain.h; sourceTree = "<group>"; };
+		2CA656F11EFDC9FC000105CF /* hyperGraph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = hyperGraph.h; path = ../src/hyperGraph/hyperGraph.h; sourceTree = "<group>"; };
+		2CA656F31EFDCAEC000105CF /* hyperGraphTests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = hyperGraphTests.cpp; path = ../src/tests/hyperGraphTests.cpp; sourceTree = "<group>"; };
+		2CA656F51EFDCC3B000105CF /* testMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = testMain.cpp; path = ../src/tests/testMain.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +70,9 @@
 		2CA656BF1EFB23C9000105CF = {
 			isa = PBXGroup;
 			children = (
+				2CA656F51EFDCC3B000105CF /* testMain.cpp */,
+				2CA656F31EFDCAEC000105CF /* hyperGraphTests.cpp */,
+				2CA656F11EFDC9FC000105CF /* hyperGraph.h */,
 				2CA656ED1EFDC845000105CF /* testMain.h */,
 				2CA656EB1EFDC83D000105CF /* HMHM.h */,
 				2CA656E91EFDC834000105CF /* nodeIterator.cpp */,
@@ -104,6 +113,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CA656F21EFDC9FC000105CF /* hyperGraph.h in Headers */,
 				2CA656EC1EFDC83D000105CF /* HMHM.h in Headers */,
 				2CA656EE1EFDC845000105CF /* testMain.h in Headers */,
 				2CA656DE1EFB647C000105CF /* errorMessages.h in Headers */,
@@ -177,6 +187,8 @@
 				2CA656E51EFDC827000105CF /* Family.cpp in Sources */,
 				2CA656E61EFDC827000105CF /* hyperGraph.cpp in Sources */,
 				2CA656E81EFDC82C000105CF /* Node.cpp in Sources */,
+				2CA656F41EFDCAEC000105CF /* hyperGraphTests.cpp in Sources */,
+				2CA656F61EFDCC3B000105CF /* testMain.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
