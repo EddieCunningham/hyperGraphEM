@@ -1,5 +1,22 @@
 #include "/Users/Eddie/hyperGraphEM/src/pedigreeParse/pedigreeAllocator.h"
 
+Person* PedigreeAllocator::getPerson(int id) {
+    if(_allPeople.find(id) == _allPeople.end()) {
+        return nullptr;
+    }
+    return _allPeople.at(id);
+}
+
+Family* PedigreeAllocator::getFamily(int id) {
+    if(_allFamilies.find(id) == _allFamilies.end()) {
+        return nullptr;
+    }
+    return _allFamilies.at(id);
+}
+
+DAH* PedigreeAllocator::getDAH() {
+    return _dah;
+}
 
 Data* PedigreeAllocator::allocateData(string jsonifiedData) {
 
@@ -11,50 +28,47 @@ Data* PedigreeAllocator::allocateData(string jsonifiedData) {
 Person* PedigreeAllocator::allocatePerson(int id, Data* data) {
 
     Person* person = new Person(id,data);
-    _allNodes.push_back(person);
+    _allPeople[id] = person;
     return person;
 }
 
 FamilyWrapper* PedigreeAllocator::allocateFamilyWrapper(int id, vector<Person*> parents, vector<Person*> children) {
 
     FamilyWrapper* familyWrapper = new FamilyWrapper(id,parents,children);
-    _allFamilies.push_back(familyWrapper);
+    _allFamilies[id] = familyWrapper;
     return familyWrapper;
 }
 
 DAH* PedigreeAllocator::allocateDAH(const vector<FamilyWrapper*>& families) {
 
-    DAH* dah = new DAH(families);
-    _allDAHs.push_back(dah);
-    return dah;
+    _dah = new DAH(families);
+    return _dah;
 }
 
-void PedigreeAllocator::deallocateData() {
+void PedigreeAllocator::_deallocateData() {
 
     for(Data* data: _allData) {
         delete data;
     }
 }
 
-void PedigreeAllocator::deallocatePeople() {
+void PedigreeAllocator::_deallocatePeople() {
 
-    for(Person* Person: _allNodes) {
-        delete Person;
+    for(pair<const int,Person*>& idPerson: _allPeople) {
+        delete idPerson.second;
     }
 }
 
-void PedigreeAllocator::deallocateFamilyWrappers() {
+void PedigreeAllocator::_deallocateFamilyWrappers() {
 
-    for(FamilyWrapper* familyWrapper: _allFamilies) {
-        delete familyWrapper;
+    for(pair<const int,FamilyWrapper*>& familyWrapper: _allFamilies) {
+        delete familyWrapper.second;
     }
 }
 
-void PedigreeAllocator::deallocateDAHs() {
+void PedigreeAllocator::_deallocateDAH() {
 
-    for(DAH* dah: _allDAHs) {
-        delete dah;
-    }
+    delete _dah;
 }
 
 

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <unordered_map>
-#include "/Users/Eddie/hyperGraphEM/src/EM/pedigreeEM/hyperGraphDelegate.h"
+#include "/Users/Eddie/hyperGraphEM/src/EM/pedigreeEM/pedigreeHyperGraph.h"
 
 using namespace std;
 

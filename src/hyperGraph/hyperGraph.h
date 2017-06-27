@@ -46,7 +46,7 @@ public:
 
 /* --------------------------------------- */
 
-class Family {    
+class Family {
     friend class NodeIterator;
     friend class DirectedAcyclicHypergraph;
 
@@ -80,6 +80,9 @@ public:
 
     DirectedAcyclicHypergraph() {}
     DirectedAcyclicHypergraph(const vector<Family*>& families): _families(families) {}
+
+    unordered_set<Node*> getAllNodes() const;
+    unordered_set<Family*> getAllFamilies() const;
 
     // ^(n)
     // v(n)

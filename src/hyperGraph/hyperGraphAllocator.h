@@ -12,7 +12,7 @@ class HyperGraphAllocator {
     vector<Data*> _allData;
     vector<Node*> _allNodes;
     vector<Family*> _allFamilies;
-    vector<DirectedAcyclicHypergraph*> _allDAHs;
+    DirectedAcyclicHypergraph* _dah;
 
 public:
     HyperGraphAllocator() {}
@@ -25,7 +25,7 @@ public:
     void deallocateData();
     void deallocateNodes();
     void deallocateFamilies();
-    void deallocateDAHs();
+    void deallocateDAH();
 };
 
 

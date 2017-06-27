@@ -21,10 +21,10 @@ class Person : public Node {
 
     Sex _sex;
     int _updateVal;
-    vector<double> _logU;
-    vector<double> _logAlpha;
-    unordered_map<FamilyWrapper*,vector<double>> _logBeta;
-    unordered_map<FamilyWrapper*,vector<double>> _logGamma;
+    vector<LogVar> _u;
+    vector<LogVar> _alpha;
+    unordered_map<FamilyWrapper*,vector<LogVar>> _beta;
+    unordered_map<FamilyWrapper*,vector<LogVar>> _gamma;
 
 
     LogVar _computeUVal(int x);

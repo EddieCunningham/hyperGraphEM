@@ -24,9 +24,8 @@ Family* HyperGraphAllocator::allocateFamily(int id, vector<Node*> parents, vecto
 
 DirectedAcyclicHypergraph* HyperGraphAllocator::allocateDAH(const vector<Family*>& families) {
 
-    DirectedAcyclicHypergraph* dah = new DirectedAcyclicHypergraph(families);
-    _allDAHs.push_back(dah);
-    return dah;
+    _dah = new DirectedAcyclicHypergraph(families);
+    return _dah;
 }
 
 void HyperGraphAllocator::deallocateData() {
@@ -50,11 +49,9 @@ void HyperGraphAllocator::deallocateFamilies() {
     }
 }
 
-void HyperGraphAllocator::deallocateDAHs() {
+void HyperGraphAllocator::deallocateDAH() {
 
-    for(DirectedAcyclicHypergraph* dah: _allDAHs) {
-        delete dah;
-    }
+    delete _dah;
 }
 
 

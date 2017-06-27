@@ -4,6 +4,24 @@ void DirectedAcyclicHypergraph::_addFamily(Family* family) {
     _families.push_back(family);
 }
 
+unordered_set<Node*> DirectedAcyclicHypergraph::getAllNodes() const {
+
+    unordered_set<Node*> ans;
+    for(Family* family: _families) {
+        vector<Node*> nodes = family->_getNodes();
+        ans.insert(nodes.begin(),nodes.end());
+    }
+    return ans;
+}
+
+unordered_set<Family*> DirectedAcyclicHypergraph::getAllFamilies() const {
+
+    unordered_set<Family*> ans;
+    ans.insert(_families.begin(),_families.end());
+    return ans;
+}
+
+
 unordered_set<Node*> DirectedAcyclicHypergraph::getParents(Node* node) const {
 
     vector<Family*> upFamilies = node->_getUpFamilies();

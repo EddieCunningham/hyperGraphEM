@@ -1,4 +1,4 @@
-#include "/Users/Eddie/hyperGraphEM/src/EM/pedigreeEM/hyperGraphDelegate.h"
+#include "/Users/Eddie/hyperGraphEM/src/EM/pedigreeEM/pedigreeHyperGraph.h"
 
 
 Person::Person(int id, Data* data): Node(id,data) {}
