@@ -5,16 +5,16 @@
 
 void testNodeInit() {
 
-    Node a_;
-    Node b_;
-    Node c_;
+    Node a_(-1,nullptr);
+    Node b_(-1,nullptr);
+    Node c_(-1,nullptr);
 }
 
 void testFamilyInit() {
 
-    Node a_;
-    Node b_;
-    Node c_;
+    Node a_(-1,nullptr);
+    Node b_(-1,nullptr);
+    Node c_(-1,nullptr);
 
     Node* a = &a_;
     Node* b = &b_;
@@ -22,65 +22,65 @@ void testFamilyInit() {
 
     /* -------------------------------------- */
 
-    Family f_1(vector<Node*>{a,b,c},vector<Node*>({}));
-    Family f_2(vector<Node*>{a,b},vector<Node*>({c}));
+    Family f_1(1,vector<Node*>{a,b,c},vector<Node*>({}));
+    Family f_2(2,vector<Node*>{a,b},vector<Node*>({c}));
 }
 
 pair<vector<Node*>,vector<Family*>> testDAH() {
-    Node* n1 = new Node(1);
-    Node* n2 = new Node(2);
-    Node* n3 = new Node(3);
-    Node* n4 = new Node(4);
-    Node* n5 = new Node(5);
-    Node* n6 = new Node(6);
-    Node* n7 = new Node(7);
-    Node* n8 = new Node(8);
-    Node* n9 = new Node(9);
-    Node* n10 = new Node(10);
-    Node* n11 = new Node(11);
-    Node* n12 = new Node(12);
-    Node* n13 = new Node(13);
-    Node* n14 = new Node(14);
-    Node* n15 = new Node(15);
-    Node* n16 = new Node(16);
-    Node* n17 = new Node(17);
-    Node* n18 = new Node(18);
-    Node* n19 = new Node(19);
-    Node* n20 = new Node(20);
-    Node* n21 = new Node(21);
-    Node* n22 = new Node(22);
-    Node* n23 = new Node(23);
-    Node* n24 = new Node(24);
-    Node* n25 = new Node(25);
-    Node* n26 = new Node(26);
-    Node* n27 = new Node(27);
-    Node* n28 = new Node(28);
-    Node* n29 = new Node(29);
-    Node* n30 = new Node(30);
-    Node* n31 = new Node(31);
-    Node* n32 = new Node(32);
-    Node* n33 = new Node(33);
+    Node* n1 = new Node(1,nullptr);
+    Node* n2 = new Node(2,nullptr);
+    Node* n3 = new Node(3,nullptr);
+    Node* n4 = new Node(4,nullptr);
+    Node* n5 = new Node(5,nullptr);
+    Node* n6 = new Node(6,nullptr);
+    Node* n7 = new Node(7,nullptr);
+    Node* n8 = new Node(8,nullptr);
+    Node* n9 = new Node(9,nullptr);
+    Node* n10 = new Node(10,nullptr);
+    Node* n11 = new Node(11,nullptr);
+    Node* n12 = new Node(12,nullptr);
+    Node* n13 = new Node(13,nullptr);
+    Node* n14 = new Node(14,nullptr);
+    Node* n15 = new Node(15,nullptr);
+    Node* n16 = new Node(16,nullptr);
+    Node* n17 = new Node(17,nullptr);
+    Node* n18 = new Node(18,nullptr);
+    Node* n19 = new Node(19,nullptr);
+    Node* n20 = new Node(20,nullptr);
+    Node* n21 = new Node(21,nullptr);
+    Node* n22 = new Node(22,nullptr);
+    Node* n23 = new Node(23,nullptr);
+    Node* n24 = new Node(24,nullptr);
+    Node* n25 = new Node(25,nullptr);
+    Node* n26 = new Node(26,nullptr);
+    Node* n27 = new Node(27,nullptr);
+    Node* n28 = new Node(28,nullptr);
+    Node* n29 = new Node(29,nullptr);
+    Node* n30 = new Node(30,nullptr);
+    Node* n31 = new Node(31,nullptr);
+    Node* n32 = new Node(32,nullptr);
+    Node* n33 = new Node(33,nullptr);
     vector<Node*> nodes({n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14,n15,n16,n17,n18,n19,n20,n21,n22,n23,n24,n25,n26,n27,n28,n29,n30,n31,n32,n33});
 
-    Family* f1 = new Family(vector<Node*>({n1,n2,n3}),vector<Node*>({n6,n7}));
+    Family* f1 = new Family(1,vector<Node*>({n1,n2,n3}),vector<Node*>({n6,n7}));
     f1->id = 1;
-    Family* f2 = new Family(vector<Node*>({n4,n5,n6}),vector<Node*>({n12,n17}));
+    Family* f2 = new Family(2,vector<Node*>({n4,n5,n6}),vector<Node*>({n12,n17}));
     f2->id = 2;
-    Family* f3 = new Family(vector<Node*>({n8,n9}),vector<Node*>({n11}));
+    Family* f3 = new Family(3,vector<Node*>({n8,n9}),vector<Node*>({n11}));
     f3->id = 3;
-    Family* f4 = new Family(vector<Node*>({n10,n11,n12}),vector<Node*>({n20,n21}));
+    Family* f4 = new Family(4,vector<Node*>({n10,n11,n12}),vector<Node*>({n20,n21}));
     f4->id = 4;
-    Family* f5 = new Family(vector<Node*>({n13,n14}),vector<Node*>({n16}));
+    Family* f5 = new Family(5,vector<Node*>({n13,n14}),vector<Node*>({n16}));
     f5->id = 5;
-    Family* f6 = new Family(vector<Node*>({n12,n15,n16}),vector<Node*>({n22,n23,n24}));
+    Family* f6 = new Family(6,vector<Node*>({n12,n15,n16}),vector<Node*>({n22,n23,n24}));
     f6->id = 6;
-    Family* f7 = new Family(vector<Node*>({n17,n18,n19}),vector<Node*>({n32,n33}));
+    Family* f7 = new Family(7,vector<Node*>({n17,n18,n19}),vector<Node*>({n32,n33}));
     f7->id = 7;
-    Family* f8 = new Family(vector<Node*>({n24,n25}),vector<Node*>({n27}));
+    Family* f8 = new Family(8,vector<Node*>({n24,n25}),vector<Node*>({n27}));
     f8->id = 8;
-    Family* f9 = new Family(vector<Node*>({n26,n12}),vector<Node*>({n28,n29}));
+    Family* f9 = new Family(9,vector<Node*>({n26,n12}),vector<Node*>({n28,n29}));
     f9->id = 9;
-    Family* f10 = new Family(vector<Node*>({n29,n30}),vector<Node*>({n31}));
+    Family* f10 = new Family(10,vector<Node*>({n29,n30}),vector<Node*>({n31}));
     f10->id = 10;
     vector<Family*> families({f1,f2,f3,f4,f5,f6,f7,f8,f9,f10});
 

@@ -1,6 +1,20 @@
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/hyperGraph.h"
 
-Family::Family(vector<Node*> parents, vector<Node*> children):
+Family::Family(int id): id(id){}
+
+void Family::_addParent(Node* parent) {
+    _parents.push_back(parent);
+    parent->_becomeParentOfFamily(this);
+}
+
+void Family::_addChild(Node* child) {
+    _children.push_back(child);
+    child->_becomeChildOfFamily(this);
+}
+
+
+Family::Family(int id, vector<Node*> parents, vector<Node*> children):
+id(id),
 _parents(parents),
 _children(children) {
 

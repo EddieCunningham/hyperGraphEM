@@ -4,6 +4,7 @@
 void allLogVarTests();
 void allDAHTests();
 void allDAHEMTests();
+void allPedigreeParseTests();
 
 void allTests();
 

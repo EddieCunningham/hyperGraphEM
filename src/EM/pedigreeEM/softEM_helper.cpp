@@ -1,7 +1,7 @@
 #include "/Users/Eddie/hyperGraphEM/src/EM/pedigreeEM/softEM.h"
 
 
-void sortMates(PersonWrapper* mateA, PersonWrapper* mateB, PersonWrapper* mother, PersonWrapper* father) {
+void sortMates(Person* mateA, Person* mateB, Person* mother, Person* father) {
     if(mateA == nullptr || mateB == nullptr) {
         mother = nullptr;
         father = nullptr;
@@ -9,7 +9,7 @@ void sortMates(PersonWrapper* mateA, PersonWrapper* mateB, PersonWrapper* mother
     }
 
     Sex aSex = mateA->getSex();
-    Sex BSex = mateB->getSex();
+    Sex bSex = mateB->getSex();
     if(aSex == female && bSex == male) {
         mother = mateA;
         father = mateB;

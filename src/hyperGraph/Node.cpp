@@ -23,7 +23,7 @@ vector<Family*> Node::_getFamilies() const {
     return allFamilies;
 }
 
-Data* Node::_getData() const {
+Data* Node::getData() const {
     return _data;
 }
 

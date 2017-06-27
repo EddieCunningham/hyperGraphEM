@@ -3,26 +3,26 @@
 
 
 void PedigreeSoftEMOptimizer::_calculateAValues() {
-    for(DAHWrapper* dah: _trainingSet) {
-        dah->calcAVals;
+    for(DAH* dah: _trainingSet) {
+        dah->calcAVals();
     }
 }
 
 void PedigreeSoftEMOptimizer::_calculateBValues() {
-    for(DAHWrapper* dah: _trainingSet) {
-        dah->calcBVals;
+    for(DAH* dah: _trainingSet) {
+        dah->calcBVals();
     }
 }
 
 void PedigreeSoftEMOptimizer::_calculateCValues() {
-    for(DAHWrapper* dah: _trainingSet) {
-        dah->calcCVals;
+    for(DAH* dah: _trainingSet) {
+        dah->calcCVals();
     }
 }
 
 void PedigreeSoftEMOptimizer::_updateRootProbs() {
-    for(DAHWrapper* dah: _trainingSet) {
-        dah->updateRootProbs;
+    for(DAH* dah: _trainingSet) {
+        dah->updateRootProbs();
     }
 }
 
@@ -32,21 +32,23 @@ void PedigreeSoftEMOptimizer::_updateTransitionProbs() {
 void PedigreeSoftEMOptimizer::_updateEmissionProbs() {
 }
 
-double PedigreeSoftEMOptimizer::getTransitionProb(PersonWrapper* parentA, int a_x, PersonWrapper* parentB, int b_x, PersonWrapper* child, int x) {
+double PedigreeSoftEMOptimizer::getTransitionProb(Person* parentA, int a_x, Person* parentB, int b_x, Person* child, int x) {
 
-    Sex sexIndex = child->getSexIndex();
-    PersonWrapper* mother;
-    PersonWrapper* father;
+    Sex sexIndex = child->getSex();
+    Person* mother;
+    Person* father;
     sortMates(parentA,parentB,mother,father);
+    
+    return -1;
 
 }
 
-double PedigreeSoftEMOptimizer::getEmissionProb(PersonWrapper* person, int i) {
-
+double PedigreeSoftEMOptimizer::getEmissionProb(Person* person, int i) {
+    return -1;
 }
 
-double PedigreeSoftEMOptimizer::getRootProb(PersonWrapper* root, int i) {
-
+double PedigreeSoftEMOptimizer::getRootProb(Person* root, int i) {
+    return -1;
 }
 
 void PedigreeSoftEMOptimizer::EStep() {

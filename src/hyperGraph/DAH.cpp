@@ -1,6 +1,8 @@
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/hyperGraph.h"
 
-
+void DirectedAcyclicHypergraph::_addFamily(Family* family) {
+    _families.push_back(family);
+}
 
 unordered_set<Node*> DirectedAcyclicHypergraph::getParents(Node* node) const {
 

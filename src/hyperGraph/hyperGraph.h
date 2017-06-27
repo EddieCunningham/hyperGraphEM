@@ -9,8 +9,9 @@
 using namespace std;
 
 class Data {
+    string _jsonifiedData;
 public:
-    virtual int getData(string selector);
+    Data(string jsonifiedData): _jsonifiedData(jsonifiedData) {}
 };
 
 class Node;
@@ -35,14 +36,12 @@ class Node {
     vector<Family*> _getUpFamilies() const;
     vector<Family*> _getDownFamilies() const;
     vector<Family*> _getFamilies() const;
-    Data* _getData() const;
 
 public:
     int id;
 
-    Node(): _data(nullptr) {}
-    Node(int id): _data(nullptr),id(id) {}
-    Node(Data* data): _data(data) {}
+    Data* getData() const;
+    Node(int id, Data* data): _data(data),id(id) {}
 };
 
 /* --------------------------------------- */
@@ -57,10 +56,16 @@ class Family {
     vector<Node*> _getParents() const;
     vector<Node*> _getChildren() const;
     vector<Node*> _getNodes() const;
+
+protected:
+    void _addParent(Node* parent);
+    void _addChild(Node* child);
+
 public:
     int id;
 
-    Family(vector<Node*> parents, vector<Node*> children);
+    Family(int id);
+    Family(int id, vector<Node*> parents, vector<Node*> children);
 };
 
 /* --------------------------------------- */
@@ -68,8 +73,12 @@ public:
 class DirectedAcyclicHypergraph {
     vector<Family*> _families;
 
+protected:
+    void _addFamily(Family* family);
+
 public:
 
+    DirectedAcyclicHypergraph() {}
     DirectedAcyclicHypergraph(const vector<Family*>& families): _families(families) {}
 
     // ^(n)

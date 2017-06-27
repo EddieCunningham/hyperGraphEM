@@ -8,14 +8,14 @@
 using namespace std;
 
 
-void sortMates(PersonWrapper* mateA, PersonWrapper* mateB, PersonWrapper* mother, PersonWrapper* father);
+void sortMates(Person* mateA, Person* mateB, Person* mother, Person* father);
 
 class PedigreeSoftEMOptimizer {
 
-    vector<DAHWrapper*> _trainingSet;
+    vector<DAH*> _trainingSet;
 
-    unordered_map<Sex,vector<vector<double>>> _emissionProbs;
-    unordered_map<Sex,vector<vector<vector<double>>>> _transitionProbs;
+    unordered_map<int,vector<vector<double>>> _emissionProbs;
+    unordered_map<int,vector<vector<vector<double>>>> _transitionProbs;
 
     /* --------- E Step --------- */
     void _calculateAValues();
@@ -29,11 +29,11 @@ class PedigreeSoftEMOptimizer {
 
 public:
 
-    PedigreeSoftEMOptimizer(vector<DAHWrapper*> trainingSet): _trainingSet(trainingSet){}
+    PedigreeSoftEMOptimizer(vector<DAH*> trainingSet): _trainingSet(trainingSet){}
 
-    double getTransitionProb(PersonWrapper* parentA, PersonWrapper* parentB, PersonWrapper* child, int i, int j, int k);
-    double getEmissionProb(PersonWrapper* person, int i);
-    double getRootProb(PersonWrapper* root, int i);
+    double getTransitionProb(Person* parentA, int a_x, Person* parentB, int b_x, Person* child, int x);
+    double getEmissionProb(Person* person, int i);
+    double getRootProb(Person* root, int i);
 
     void EStep();
     void MStep();
@@ -46,8 +46,8 @@ class PedigreeEMModel {
 public:
     PedigreeEMModel();
 
-    void train(const vector<DAHWrapper*>& trainingSet);
-    void predict(const DAHWrapper* test);
+    void train(const vector<DAH*>& trainingSet);
+    void predict(const DAH* test);
 };
 
 
