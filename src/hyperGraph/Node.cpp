@@ -27,3 +27,14 @@ Data* Node::getData() const {
     return _data;
 }
 
+
+unordered_set<Family*> Node::getUpFamilies() const {
+    vector<Family*> fams = _getUpFamilies();
+    return unordered_set<Family*>(fams.begin(),fams.end());
+}
+
+unordered_set<Family*> Node::getDownFamilies() const {
+    vector<Family*> fams = _getDownFamilies();
+    return unordered_set<Family*>(fams.begin(),fams.end());
+}
+

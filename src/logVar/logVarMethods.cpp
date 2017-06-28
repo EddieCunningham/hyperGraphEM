@@ -1,7 +1,7 @@
 #include "/Users/Eddie/hyperGraphEM/src/logVar/logVar.h"
 
 
-double LogVar::_safeLog(double x, bool checkVal) {
+double LogVar::_safeLog(double x, bool checkVal) const {
     if(checkVal && !_checkVal(x)) {
         string message = "LogVar can only handle values between 0 and 1.  x was: "+to_string(x);
         failWithMessage(__FILE__,__LINE__,message);
@@ -12,15 +12,15 @@ double LogVar::_safeLog(double x, bool checkVal) {
     return log(x);
 }
 
-bool LogVar::_checkLogVal(double log_x) {
+bool LogVar::_checkLogVal(double log_x) const {
     return log_x < PRECISION || log_x == UNIQUE_ZERO_ID;
 }
 
-bool LogVar::_checkVal(double x) {
+bool LogVar::_checkVal(double x) const {
     return x > 0.0 - PRECISION && x < 1.0 + PRECISION;
 }
 
-bool LogVar::_logEqual(double log_x, double log_y) {
+bool LogVar::_logEqual(double log_x, double log_y) const {
     // checks to see that x and y are sufficiently close in log space
     if(log_x == UNIQUE_ZERO_ID) {
         if(log_y == UNIQUE_ZERO_ID) {
@@ -41,7 +41,7 @@ bool LogVar::_logEqual(double log_x, double log_y) {
     return diff < LOG_PRECISION;
 }
 
-bool LogVar:: _equal(double x, double y) {
+bool LogVar:: _equal(double x, double y) const {
     // checks to see if x and y are close enough
     if(abs(x-y) < PRECISION) {
         return true;

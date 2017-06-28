@@ -42,6 +42,9 @@ public:
 
     Data* getData() const;
     Node(int id, Data* data): _data(data),id(id) {}
+
+    unordered_set<Family*> getUpFamilies() const;
+    unordered_set<Family*> getDownFamilies() const;
 };
 
 /* --------------------------------------- */
@@ -66,6 +69,10 @@ public:
 
     Family(int id);
     Family(int id, vector<Node*> parents, vector<Node*> children);
+
+    unordered_set<Node*> getParents() const;
+    unordered_set<Node*> getChildren() const;
+    unordered_set<Node*> getNodes() const;
 };
 
 /* --------------------------------------- */

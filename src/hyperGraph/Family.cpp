@@ -42,3 +42,20 @@ vector<Node*> Family::_getNodes() const {
 }
 
 
+
+unordered_set<Node*> Family::getParents() const {
+    vector<Node*> nodes = _getParents();
+    return unordered_set<Node*>(nodes.begin(),nodes.end());
+}
+
+unordered_set<Node*> Family::getChildren() const {
+    vector<Node*> nodes = _getChildren();
+    return unordered_set<Node*>(nodes.begin(),nodes.end());
+}
+
+unordered_set<Node*> Family::getNodes() const {
+    vector<Node*> nodes = _getNodes();
+    return unordered_set<Node*>(nodes.begin(),nodes.end());
+}
+
+

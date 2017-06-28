@@ -17,15 +17,15 @@ void LogVar::operator =(double a) {
     _assign(log_x);
 }
 /* -------------------------------------------------------------------------------- */
-bool LogVar::_eq(double log_x) {
+const bool LogVar::_eq(double log_x) const {
     return _logEqual(_logAns,log_x);
 }
-bool LogVar::operator ==(const LogVar& a) {
+const bool LogVar::operator ==(const LogVar& a) const {
     double log_x = a._logAns;
     return _eq(log_x);
 
 }
-bool LogVar::operator ==(double a) {
+const bool LogVar::operator ==(double a) const {
     if(!_checkVal(a)) {
         return false;
     }
@@ -33,7 +33,7 @@ bool LogVar::operator ==(double a) {
     return _eq(log_x);
 }
 /* -------------------------------------------------------------------------------- */
-bool LogVar::_lt(double log_x) {
+const bool LogVar::_lt(double log_x) const {
     if(_eq(log_x)) {
         return false;
     }
@@ -45,11 +45,11 @@ bool LogVar::_lt(double log_x) {
     }
     return _logAns < log_x;
 }
-bool LogVar::operator <(const LogVar& a) {
+const bool LogVar::operator <(const LogVar& a) const {
     double log_x = a._logAns;
     return _lt(log_x);
 }
-bool LogVar::operator <(double a) {
+const bool LogVar::operator <(double a) const {
     if(a > 1.0 + PRECISION) {
         return true;
     }
@@ -61,33 +61,33 @@ bool LogVar::operator <(double a) {
     return _lt(log_x);
 }
 /* -------------------------------------------------------------------------------- */
-bool LogVar::operator !=(const LogVar& a) {
+const bool LogVar::operator !=(const LogVar& a) const {
     return !((*this) == a);
 
 }
-bool LogVar::operator !=(double a) {
+const bool LogVar::operator !=(double a) const {
     return !((*this) == a);
 }
 /* -------------------------------------------------------------------------------- */
-bool LogVar::operator <=(const LogVar& a) {
+const bool LogVar::operator <=(const LogVar& a) const {
     return ((*this) < a) || ((*this) == a);
 }
-bool LogVar::operator <=(double a) {
+const bool LogVar::operator <=(double a) const {
     return ((*this) < a) || ((*this) == a);
 }
 /* -------------------------------------------------------------------------------- */
-bool LogVar::operator >(const LogVar& a) {
+const bool LogVar::operator >(const LogVar& a) const {
     return !((*this) <= a);
 }
-bool LogVar::operator >(double a) {
+const bool LogVar::operator >(double a) const {
     return !((*this) <= a);
 }
 /* -------------------------------------------------------------------------------- */
-bool LogVar::operator >=(const LogVar& a) {
+const bool LogVar::operator >=(const LogVar& a) const {
     return !((*this) < a);
 
 }
-bool LogVar::operator >=(double a) {
+const bool LogVar::operator >=(double a) const {
     return !((*this) < a);
 }
 /* -------------------------------------------------------------------------------- */
