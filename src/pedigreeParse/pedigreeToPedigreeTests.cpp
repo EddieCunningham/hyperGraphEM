@@ -1,5 +1,5 @@
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/hyperGraph.h"
-#include "/Users/Eddie/hyperGraphEM/src/pedigreeParse/pedigreeToDAH.h"
+#include "/Users/Eddie/hyperGraphEM/src/pedigreeParse/pedigreeToPedigree.h"
 #include "/Users/Eddie/hyperGraphEM/src/messages/errorMessages.h"
 #include "/Users/Eddie/hyperGraphEM/src/helper/nestedLoop.h"
 #include "/Users/Eddie/hyperGraphEM/src/EM/pedigreeEM/pedigreeHyperGraph.h"
@@ -10,12 +10,12 @@
 
 
 
-void pedigreeToDAH::pedigreeToDAHTests() {
+void PedigreeToPedigree::pedigreeToPedigreeTests() {
     failWithMessage(__FILE__,__LINE__,"assert statement");
 }
-void pedigreeToDAH::getDAHTests() {
+void PedigreeToPedigree::getPedigreeTests() {
     failWithMessage(__FILE__,__LINE__,"assert statement");
 }
-void pedigreeToDAH::getPersonTests() {
+void PedigreeToPedigree::getPersonTests() {
     failWithMessage(__FILE__,__LINE__,"assert statement");
 }

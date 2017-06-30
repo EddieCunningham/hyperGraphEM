@@ -10,23 +10,21 @@ using namespace std;
 
 
 class Person;
-class FamilyWrapper;
-class DAH;
+class NuclearFamily;
+class Pedigree;
 
 
 void sortMates(Person* mateA, Person* mateB, Person* mother, Person* father);
 
 class PedigreeSoftEMOptimizer {
 
-    vector<DAH*> _trainingSet;
+    vector<Pedigree*> _trainingSet;
 
     unordered_map<int,vector<vector<double>>> _emissionProbs;
     unordered_map<int,vector<vector<vector<double>>>> _transitionProbs;
 
     /* --------- E Step --------- */
-    void _calculateAValues();
-    void _calculateBValues();
-    void _calculateCValues();
+    void _calculateABCValues();
 
     /* --------- M Step --------- */
     void _updateRootProbs();
@@ -35,7 +33,7 @@ class PedigreeSoftEMOptimizer {
 
 public:
 
-    PedigreeSoftEMOptimizer(vector<DAH*> trainingSet): _trainingSet(trainingSet){}
+    PedigreeSoftEMOptimizer(vector<Pedigree*> trainingSet): _trainingSet(trainingSet){}
 
     double getTransitionProb(Person* parentA, int a_x, Person* parentB, int b_x, Person* child, int x);
     double getEmissionProb(Person* person, int i);
@@ -60,8 +58,8 @@ class PedigreeEMModel {
 public:
     PedigreeEMModel();
 
-    void train(const vector<DAH*>& trainingSet);
-    void predict(const DAH* test);
+    void train(const vector<Pedigree*>& trainingSet);
+    void predict(const Pedigree* test);
 
     /* TESTS */
     static void PedigreeEMModelTests();

@@ -5,6 +5,7 @@
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/nodeIterator.h"
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/hyperGraph.h"
 #include "/Users/Eddie/hyperGraphEM/src/logVar/logVar.h"
+#include "/Users/Eddie/hyperGraphEM/src/hyperGraph/forwardsBackwards.h"
 #include <unordered_map>
 #include <vector>
 
@@ -16,9 +17,51 @@ enum Shading {shaded,unshaded,NUMB_SHADING};
 enum Sex {female,male,unknown,NUMB_SEXES};
 
 class Person;
-class FamilyWrapper;
-class DAH;
+class NuclearFamily;
+class Pedigree;
+
 class PedigreeSoftEMOptimizer;
+
+class NumberOfHiddenStatesGetter;
+class EmissionFunction;
+class TransitionFunction;
+class RootProbFunction;
+class FowrardsBackwards;
+
+
+class NumberOfAllelesGetter: public NumberOfHiddenStatesGetter {
+public:
+    unsigned operator()(Node* node) {
+        failWithMessage(__FILE__,__LINE__,"assert");
+        return NUMB_ALLELES;
+    }
+};
+
+class ShadingFunction: public EmissionFunction {
+public:
+    LogVar operator()(Node* node, unsigned x) {
+        failWithMessage(__FILE__,__LINE__,"assert");
+        return LogVar();
+    }
+};
+
+class ParentChildTransitionFunction: public TransitionFunction {
+
+public:
+    LogVar operator()(Family* family, Node* child, const unordered_map<Node*,unsigned>& X, unsigned x) {
+        failWithMessage(__FILE__,__LINE__,"assert");
+        return LogVar();
+    }
+};
+
+class RootAncestorProbFunction: public RootProbFunction {
+
+    Pedigree* _pedigree;
+public:
+    RootAncestorProbFunction(Pedigree* pedigree): _pedigree(pedigree) {}
+
+    LogVar operator()(Node* node, unsigned x);
+};
 
 class Person : public Node {
 
@@ -51,52 +94,57 @@ public:
     static void getObservedStatesNTests();
 };
 
-class FamilyWrapper : public Family {
+class NuclearFamily : public Family {
 
 public:
 
-    FamilyWrapper(int id, unordered_set<Person*> parents, unordered_set<Person*> children): Family(id,unordered_set<Node*>(parents.begin(),parents.end()),unordered_set<Node*>(children.begin(),children.end())) {}
+    NuclearFamily(int id, unordered_set<Person*> parents, unordered_set<Person*> children): Family(id,unordered_set<Node*>(parents.begin(),parents.end()),unordered_set<Node*>(children.begin(),children.end())) {}
 
     /* TESTS */
-    static void FamilyWrapperTests();
+    static void NuclearFamilyTests();
 
 };
 
 
-class DAH : public DirectedAcyclicHypergraph {
+class Pedigree : public DirectedAcyclicHypergraph {
 
-    unordered_map<Person*,vector<double>> _rootProbs;
+    unordered_map<Person*,vector<LogVar>> _rootProbs;
+
+    NumberOfAllelesGetter _numbAlleleGetter;
+    ShadingFunction _emissionFunc;
+    ParentChildTransitionFunction _transitionFunc;
+    RootAncestorProbFunction _rootProbFunc;
+
+    FowrardsBackwards _forwardsBackwardsCalculator;
 
 public:
 
-    DAH(const unordered_set<FamilyWrapper*>& families) : DirectedAcyclicHypergraph(unordered_set<Family*>(families.begin(),families.end())) {}
+    Pedigree(const unordered_set<NuclearFamily*>& families) : 
+        DirectedAcyclicHypergraph(unordered_set<Family*>(families.begin(),families.end())),
+        _numbAlleleGetter(),
+        _emissionFunc(),
+        _transitionFunc(),
+        _rootProbFunc(this),
+        _forwardsBackwardsCalculator(this,&_numbAlleleGetter,&_emissionFunc,&_transitionFunc,&_rootProbFunc) {}
 
     LogVar getAValue(Person* node, int x);
-    LogVar getBValue(FamilyWrapper* family, const unordered_map<Person*,unsigned int>& X);
-    LogVar getCValue(FamilyWrapper* family, Person* child, const unordered_map<Person*,unsigned int>& X, int x);
+    LogVar getBValue(NuclearFamily* family, const unordered_map<Person*,unsigned int>& X);
+    LogVar getCValue(NuclearFamily* family, Person* child, const unordered_map<Person*,unsigned int>& X, int x);
 
-    void calcAVals();
-    void calcBVals();
-    void calcCVals();
+    void calcABCVals();
 
-    void updateRootProbs();
-    double getRootProb(Person* root, int x);
+    void updateRootProb(Person* root, int x, LogVar val);
+    LogVar getRootProb(Person* root, int x);
 
     /* TESTS */
-    static void DAHTests();
+    static void PedigreeTests();
     static void getAValueTests();
     static void getBValueTests();
     static void getCValueTests();
-    static void calcAValsTests();
-    static void calcBValsTests();
-    static void calcCValsTests();
     static void updateRootProbsTests();
     static void getRootProbTests();
 
 };
-
-
-
 
 
 

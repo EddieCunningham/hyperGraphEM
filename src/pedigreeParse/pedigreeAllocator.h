@@ -6,35 +6,36 @@ using namespace std;
 #include <vector>
 #include <unordered_set>
 
+
 class PedigreeAllocator {
 
     vector<Data*> _allData;
     unordered_map<int,Person*> _allPeople;
-    unordered_map<int,FamilyWrapper*> _allFamilies;
-    DAH* _dah;
+    unordered_map<int,NuclearFamily*> _allFamilies;
+    Pedigree* _pedigree;
 
     void _deallocateData();
     void _deallocatePeople();
-    void _deallocateFamilyWrappers();
-    void _deallocateDAH();
+    void _deallocateNuclearFamilys();
+    void _deallocatePedigree();
 
 public:
     PedigreeAllocator() {}
 
     Person* getPerson(int id);
     Family* getFamily(int id);
-    DAH* getDAH();
+    Pedigree* getPedigree();
 
     Data* allocateData(string jsonifiedData);
     Person* allocatePerson(int id, Data* data);
-    FamilyWrapper* allocateFamilyWrapper(int id, unordered_set<Person*> parents, unordered_set<Person*> children);
-    DAH* allocateDAH(const unordered_set<FamilyWrapper*>& families);
+    NuclearFamily* allocateNuclearFamily(int id, unordered_set<Person*> parents, unordered_set<Person*> children);
+    Pedigree* allocatePedigree(const unordered_set<NuclearFamily*>& families);
 
     ~PedigreeAllocator() {
         _deallocateData();
         _deallocatePeople();
-        _deallocateFamilyWrappers();
-        _deallocateDAH();
+        _deallocateNuclearFamilys();
+        _deallocatePedigree();
     }
 
     /* TESTS */
@@ -44,7 +45,7 @@ public:
     static void getDAHTests();
     static void allocateDataTests();
     static void allocatePersonTests();
-    static void allocateFamilyWrapperTests();
+    static void allocateNuclearFamilyTests();
     static void allocateDAHTests();
 };
 

@@ -1,5 +1,5 @@
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/hyperGraph.h"
-#include "/Users/Eddie/hyperGraphEM/src/pedigreeParse/pedigreeToDAH.h"
+#include "/Users/Eddie/hyperGraphEM/src/pedigreeParse/pedigreeToPedigree.h"
 #include "/Users/Eddie/hyperGraphEM/src/messages/errorMessages.h"
 #include "/Users/Eddie/hyperGraphEM/src/helper/nestedLoop.h"
 #include "/Users/Eddie/hyperGraphEM/src/EM/pedigreeEM/pedigreeHyperGraph.h"

@@ -99,7 +99,7 @@ void PedigreeParser::_establishRelationships(int Id, string jsonifiedData, strin
 void PedigreeParser::_finalizeFamilies(PedigreeAllocator& pedigreeAllocator) {
 
     int count = 0;
-    unordered_set<FamilyWrapper*> families = unordered_set<FamilyWrapper*>();
+    unordered_set<NuclearFamily*> families = unordered_set<NuclearFamily*>();
 
     for(pair<const string,vector<int>>& parentsAndChildren: _intFamilies) {
 
@@ -119,15 +119,15 @@ void PedigreeParser::_finalizeFamilies(PedigreeAllocator& pedigreeAllocator) {
             children.insert(child);
         }
 
-        FamilyWrapper* family = pedigreeAllocator.allocateFamilyWrapper(count,parents,children);
+        NuclearFamily* family = pedigreeAllocator.allocateNuclearFamily(count,parents,children);
         families.insert(family);
         ++count;
     }
-    pedigreeAllocator.allocateDAH(families);
+    pedigreeAllocator.allocatePedigree(families);
 }
 
-void PedigreeParser::_setDAH(DAH* dah) {
-    _dah = dah;
+void PedigreeParser::_setPedigree(Pedigree* pedigree) {
+    _pedigree = pedigree;
 }
 
 void PedigreeParser::parseJSON(PedigreeAllocator& pedigreeAllocator) {
@@ -152,9 +152,9 @@ void PedigreeParser::parseJSON(PedigreeAllocator& pedigreeAllocator) {
         ++i;
     }
     _finalizeFamilies(pedigreeAllocator);
-    _setDAH(pedigreeAllocator.getDAH());
+    _setPedigree(pedigreeAllocator.getPedigree());
 }
 
-DAH* PedigreeParser::getDAH() {
-    return _dah;
+Pedigree* PedigreeParser::getPedigree() {
+    return _pedigree;
 }

@@ -2,27 +2,9 @@
 
 
 
-void PedigreeSoftEMOptimizer::_calculateAValues() {
-    for(DAH* dah: _trainingSet) {
-        dah->calcAVals();
-    }
-}
-
-void PedigreeSoftEMOptimizer::_calculateBValues() {
-    for(DAH* dah: _trainingSet) {
-        dah->calcBVals();
-    }
-}
-
-void PedigreeSoftEMOptimizer::_calculateCValues() {
-    for(DAH* dah: _trainingSet) {
-        dah->calcCVals();
-    }
-}
-
-void PedigreeSoftEMOptimizer::_updateRootProbs() {
-    for(DAH* dah: _trainingSet) {
-        dah->updateRootProbs();
+void PedigreeSoftEMOptimizer::_calculateABCValues() {
+    for(Pedigree* pedigree: _trainingSet) {
+        pedigree->calcABCVals();
     }
 }
 

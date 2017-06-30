@@ -8,6 +8,10 @@
 
 Person::Person(int id, Data* data): Node(id,data) {}
 
+LogVar RootAncestorProbFunction::operator()(Node* node, unsigned x) {
+    return _pedigree->getRootProb((Person*)node,x);
+}
+
 void Person::_initializeShading() {
 
     Data* data = getData();
@@ -120,36 +124,40 @@ int Person::getObservedStatesN() {
 
 /* ------------------------------------ */
 
+void Pedigree::calcABCVals() {
 
+}
 
-LogVar DAH::getAValue(Person* node, int x) {
+LogVar Pedigree::getAValue(Person* node, int x) {
     return LogVar();
 }
 
-LogVar DAH::getBValue(FamilyWrapper* family, const unordered_map<Person*,unsigned int>& X) {
+LogVar Pedigree::getBValue(NuclearFamily* family, const unordered_map<Person*,unsigned int>& X) {
     return LogVar();
 }
 
-LogVar DAH::getCValue(FamilyWrapper* family, Person* child, const unordered_map<Person*,unsigned int>& X, int x) {
+LogVar Pedigree::getCValue(NuclearFamily* family, Person* child, const unordered_map<Person*,unsigned int>& X, int x) {
     return LogVar();
 }
 
-void DAH::calcAVals() {
 
+void Pedigree::updateRootProb(Person* root, int x, LogVar val) {
+
+    if(_rootProbs.find(root) == _rootProbs.end()) {
+        failWithMessage(__FILE__,__LINE__,"invalid root!");
+    }
+    if(x >= _rootProbs.at(root).size()) {
+        failWithMessage(__FILE__,__LINE__,"invalid index!");
+    }
+    _rootProbs.at(root).at(x) = val;
 }
 
-void DAH::calcBVals() {
-
-}
-
-void DAH::calcCVals() {
-
-}
-
-void DAH::updateRootProbs() {
-
-}
-
-double DAH::getRootProb(Person* root, int x) {
-    return -1;
+LogVar Pedigree::getRootProb(Person* root, int x) {
+    if(_rootProbs.find(root) == _rootProbs.end()) {
+        failWithMessage(__FILE__,__LINE__,"invalid root!");
+    }
+    if(x >= _rootProbs.at(root).size()) {
+        failWithMessage(__FILE__,__LINE__,"invalid index!");
+    }
+    return _rootProbs.at(root).at(x);
 }

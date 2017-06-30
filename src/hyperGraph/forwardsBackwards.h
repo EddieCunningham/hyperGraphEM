@@ -8,6 +8,10 @@
 #include <unordered_map>
 #include <vector>
 
+class Person;
+class NuclearFamily;
+class Pedigree;
+class PedigreeSoftEMOptimizer;
 
 class NumberOfHiddenStatesGetter {
 public:

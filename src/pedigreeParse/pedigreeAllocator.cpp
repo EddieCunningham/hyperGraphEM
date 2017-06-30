@@ -14,8 +14,8 @@ Family* PedigreeAllocator::getFamily(int id) {
     return _allFamilies.at(id);
 }
 
-DAH* PedigreeAllocator::getDAH() {
-    return _dah;
+Pedigree* PedigreeAllocator::getPedigree() {
+    return _pedigree;
 }
 
 Data* PedigreeAllocator::allocateData(string jsonifiedData) {
@@ -32,17 +32,17 @@ Person* PedigreeAllocator::allocatePerson(int id, Data* data) {
     return person;
 }
 
-FamilyWrapper* PedigreeAllocator::allocateFamilyWrapper(int id, unordered_set<Person*> parents, unordered_set<Person*> children) {
+NuclearFamily* PedigreeAllocator::allocateNuclearFamily(int id, unordered_set<Person*> parents, unordered_set<Person*> children) {
 
-    FamilyWrapper* familyWrapper = new FamilyWrapper(id,parents,children);
-    _allFamilies[id] = familyWrapper;
-    return familyWrapper;
+    NuclearFamily* NuclearFamily = new class NuclearFamily(id,parents,children);
+    _allFamilies[id] = NuclearFamily;
+    return NuclearFamily;
 }
 
-DAH* PedigreeAllocator::allocateDAH(const unordered_set<FamilyWrapper*>& families) {
+Pedigree* PedigreeAllocator::allocatePedigree(const unordered_set<NuclearFamily*>& families) {
 
-    _dah = new DAH(families);
-    return _dah;
+    _pedigree = new Pedigree(families);
+    return _pedigree;
 }
 
 void PedigreeAllocator::_deallocateData() {
@@ -59,16 +59,16 @@ void PedigreeAllocator::_deallocatePeople() {
     }
 }
 
-void PedigreeAllocator::_deallocateFamilyWrappers() {
+void PedigreeAllocator::_deallocateNuclearFamilys() {
 
-    for(pair<const int,FamilyWrapper*>& familyWrapper: _allFamilies) {
-        delete familyWrapper.second;
+    for(pair<const int,NuclearFamily*>& NuclearFamily: _allFamilies) {
+        delete NuclearFamily.second;
     }
 }
 
-void PedigreeAllocator::_deallocateDAH() {
+void PedigreeAllocator::_deallocatePedigree() {
 
-    delete _dah;
+    delete _pedigree;
 }
 
 

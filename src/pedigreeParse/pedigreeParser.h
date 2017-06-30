@@ -24,8 +24,8 @@ class PedigreeParser {
     Document _doc;
     string _filename;
 
-    DAH* _dah;
-    void _setDAH(DAH* dah);
+    Pedigree* _pedigree;
+    void _setPedigree(Pedigree* pedigree);
 
     unordered_map<string,vector<int>> _intFamilies;
 
@@ -42,7 +42,7 @@ public:
     PedigreeParser(string filename);
     void printRawJSON();
     void parseJSON(PedigreeAllocator& pedigreeAllocator);
-    DAH* getDAH();
+    Pedigree* getPedigree();
 
     /* TESTS */
     static void PedigreeParserTests();

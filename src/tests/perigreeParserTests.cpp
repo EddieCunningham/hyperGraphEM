@@ -6,7 +6,7 @@ class PedigreeParseTester {
 
     PedigreeParser _pedigreeParser;
     PedigreeAllocator _pedigreeAllocator;
-    DAH* _dah;
+    Pedigree* _dah;
 
     void _checkResult(const vector<Node*>& people, unordered_set<int>& expected);
     void _checkResult(const unordered_set<Node*>& people, unordered_set<int>& expected);
@@ -16,7 +16,7 @@ class PedigreeParseTester {
 public:
     PedigreeParseTester(string filename): _pedigreeParser(filename) {
         _pedigreeParser.parseJSON(_pedigreeAllocator);
-        _dah = _pedigreeParser.getDAH();
+        _dah = _pedigreeParser.getPedigree();
     }
 
     void checkAllPeopleThere();

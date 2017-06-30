@@ -1,23 +1,23 @@
-#ifndef PEDIGREETODAH_H
-#define PEDIGREETODAH_H
+#ifndef PEDIGREETOPedigree_H
+#define PEDIGREETOPedigree_H
 
 #include "/Users/Eddie/hyperGraphEM/src/pedigreeParse/pedigreeParser.h"
 #include "/Users/Eddie/hyperGraphEM/src/pedigreeParse/pedigreeAllocator.h"
 
-class pedigreeToDAH {
+class PedigreeToPedigree {
 
-    DAH* _dah;
+    Pedigree* _pedigree;
     PedigreeAllocator _allocator;
     PedigreeParser _parser;
 
 public:
-    pedigreeToDAH(string filename): _parser(filename) {
+    PedigreeToPedigree(string filename): _parser(filename) {
         _parser.parseJSON(_allocator);
-        _dah = _parser.getDAH();
+        _pedigree = _parser.getPedigree();
     }
 
-    DAH* getDAH() {
-        return _dah;
+    Pedigree* getPedigree() {
+        return _pedigree;
     }
 
     Person* getPerson(int id) {
@@ -25,8 +25,8 @@ public:
     }
 
     /* TESTS */
-    static void pedigreeToDAHTests();
-    static void getDAHTests();
+    static void pedigreeToPedigreeTests();
+    static void getPedigreeTests();
     static void getPersonTests();
 };
 

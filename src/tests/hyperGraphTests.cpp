@@ -2,7 +2,7 @@
 #include <unordered_set>
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/hyperGraph.h"
 #include "/Users/Eddie/hyperGraphEM/src/tests/testMain.h"
-#include "/Users/Eddie/hyperGraphEM/src/pedigreeParse/pedigreeToDAH.h"
+#include "/Users/Eddie/hyperGraphEM/src/pedigreeParse/pedigreeToPedigree.h"
 
 void testNodeInit() {
 
@@ -693,8 +693,8 @@ void testGetNodesDownFromExceptFromFamily() {
 
 void testGetAllFromFamilyExceptFromNodeWithCycle() {
 
-    pedigreeToDAH pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
-    DAH* dah = pedigree.getDAH();
+    PedigreeToPedigree pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
+    Pedigree* dah = pedigree.getDAH();
 
     unordered_set<int> expected;
     NodeIterator result;
@@ -728,8 +728,8 @@ void testGetAllFromFamilyExceptFromNodeWithCycle() {
 }
 
 void testGetNodesUpFromWithCycle() {
-    pedigreeToDAH pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
-    DAH* dah = pedigree.getDAH();
+    PedigreeToPedigree pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
+    Pedigree* dah = pedigree.getDAH();
 
     unordered_set<int> expected;
     NodeIterator result;
@@ -751,8 +751,8 @@ void testGetNodesUpFromWithCycle() {
 }
 
 void testGetNodesUpFromExceptFromFamilyWithCycle() {
-    pedigreeToDAH pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
-    DAH* dah = pedigree.getDAH();
+    PedigreeToPedigree pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
+    Pedigree* dah = pedigree.getDAH();
 
     unordered_set<int> expected;
     NodeIterator result;
@@ -779,8 +779,8 @@ void testGetNodesUpFromExceptFromFamilyWithCycle() {
 }
 
 void testGetNodesDownFromWithCycle() {
-    pedigreeToDAH pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
-    DAH* dah = pedigree.getDAH();
+    PedigreeToPedigree pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
+    Pedigree* dah = pedigree.getDAH();
 
     unordered_set<int> expected;
     NodeIterator result;
@@ -805,8 +805,8 @@ void testGetNodesDownFromWithCycle() {
 }
 
 void testGetNodesDownFromExceptFromFamilyWithCycle() {
-    pedigreeToDAH pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
-    DAH* dah = pedigree.getDAH();
+    PedigreeToPedigree pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
+    Pedigree* dah = pedigree.getDAH();
 
     unordered_set<int> expected;
     NodeIterator result;
@@ -831,8 +831,8 @@ void testGetNodesDownFromExceptFromFamilyWithCycle() {
 
 
 void nodeIteratorHashingTest() {
-    pedigreeToDAH pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
-    DAH* dah = pedigree.getDAH();
+    PedigreeToPedigree pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
+    Pedigree* dah = pedigree.getDAH();
 
     unordered_set<int> expected;
     NodeIterator result;
