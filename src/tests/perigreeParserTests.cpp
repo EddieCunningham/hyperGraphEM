@@ -243,7 +243,7 @@ void PedigreeParseTester::checkIteratorFunctionsNot1084LN() {
     unordered_set<int> expected;
 
     Person* p_7 = _getPerson(7);
-    result = _dah->getNodesUpFrom(p_7);
+    result = _dah->getNodesUpFrom(p_7,false);
     expected = unordered_set<int>({1,2,3,4,5,6,8,9,10,21,22,23,24,25,26,27,28});
     _checkResult(result,expected);
 
@@ -255,15 +255,15 @@ void PedigreeParseTester::checkIteratorFunctionsNot1084LN() {
     }
     Family* fam = *(families.begin());
 
-    result = _dah->getAllFromFamilyExceptFromNode(fam,p_3);
+    result = _dah->getAllFromFamilyExceptFromNode(fam,p_3,false);
     expected = unordered_set<int>({24,25});
     _checkResult(result,expected);
     
-    result = _dah->getNodesUpFromExceptFromFamily(p_3,fam);
+    result = _dah->getNodesUpFromExceptFromFamily(p_3,fam,false);
     expected = unordered_set<int>({1,2});
     _checkResult(result,expected);
 
-    result = _dah->getNodesDownFromExceptFromFamily(p_3,fam);
+    result = _dah->getNodesDownFromExceptFromFamily(p_3,fam,false);
     expected = unordered_set<int>({4,5,6,7,8,9,10,21,22,23,26,27,28});
     _checkResult(result,expected);
 }

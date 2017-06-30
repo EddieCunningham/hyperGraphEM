@@ -2,16 +2,16 @@
 #define HYPERGRAPHALLOCATOR_H
 
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/hyperGraph.h"
-#include <vector>
+#include <unordered_set>
 using namespace std;
 
 
 
 class HyperGraphAllocator {
 
-    vector<Data*> _allData;
-    vector<Node*> _allNodes;
-    vector<Family*> _allFamilies;
+    unordered_set<Data*> _allData;
+    unordered_set<Node*> _allNodes;
+    unordered_set<Family*> _allFamilies;
     DirectedAcyclicHypergraph* _dah;
 
 public:
@@ -19,13 +19,24 @@ public:
 
     Data* allocateData(string jsonifiedData);
     Node* allocateNode(int id, Data* data);
-    Family* allocateFamily(int id, vector<Node*> parents, vector<Node*> children);
-    DirectedAcyclicHypergraph* allocateDAH(const vector<Family*>& families);
+    Family* allocateFamily(int id, unordered_set<Node*> parents, unordered_set<Node*> children);
+    DirectedAcyclicHypergraph* allocateDAH(const unordered_set<Family*>& families);
 
     void deallocateData();
     void deallocateNodes();
     void deallocateFamilies();
     void deallocateDAH();
+
+    /* TESTS */
+    static void HyperGraphAllocatorTests();
+    static void allocateDataTests();
+    static void allocateNodeTests();
+    static void allocateFamilyTests();
+    static void allocateDAHTests();
+    static void deallocateDataTests();
+    static void deallocateNodesTests();
+    static void deallocateFamiliesTests();
+    static void deallocateDAHTests();
 };
 
 

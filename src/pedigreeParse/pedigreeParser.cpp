@@ -99,7 +99,7 @@ void PedigreeParser::_establishRelationships(int Id, string jsonifiedData, strin
 void PedigreeParser::_finalizeFamilies(PedigreeAllocator& pedigreeAllocator) {
 
     int count = 0;
-    vector<FamilyWrapper*> families = vector<FamilyWrapper*>();
+    unordered_set<FamilyWrapper*> families = unordered_set<FamilyWrapper*>();
 
     for(pair<const string,vector<int>>& parentsAndChildren: _intFamilies) {
 
@@ -111,16 +111,16 @@ void PedigreeParser::_finalizeFamilies(PedigreeAllocator& pedigreeAllocator) {
 
         Person* parentA = pedigreeAllocator.getPerson(parentAInt);
         Person* parentB = pedigreeAllocator.getPerson(parentBInt);
-        vector<Person*> parents = vector<Person*>({parentA,parentB});
+        unordered_set<Person*> parents = unordered_set<Person*>({parentA,parentB});
 
-        vector<Person*> children = vector<Person*>();
+        unordered_set<Person*> children = unordered_set<Person*>();
         for(int& childInt: childrenInt) {
             Person* child = pedigreeAllocator.getPerson(childInt);
-            children.push_back(child);
+            children.insert(child);
         }
 
         FamilyWrapper* family = pedigreeAllocator.allocateFamilyWrapper(count,parents,children);
-        families.push_back(family);
+        families.insert(family);
         ++count;
     }
     pedigreeAllocator.allocateDAH(families);
@@ -139,7 +139,6 @@ void PedigreeParser::parseJSON(PedigreeAllocator& pedigreeAllocator) {
             continue;
         }
         
-
         int Id = stoi(part["Id"].GetString());  
 
         StringBuffer buffer;

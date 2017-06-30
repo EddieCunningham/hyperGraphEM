@@ -11,74 +11,55 @@
 
 using namespace std;
 
-enum Sex {female,male,unknown};
+enum Allele {AA,Aa,aA,aa,NUMB_ALLELES};
+enum Shading {shaded,unshaded,NUMB_SHADING};
+enum Sex {female,male,unknown,NUMB_SEXES};
 
 class Person;
 class FamilyWrapper;
 class DAH;
+class PedigreeSoftEMOptimizer;
 
 class Person : public Node {
 
-    DAH* _dah;
-    PedigreeSoftEMOptimizer* _opt;
+    Shading _shading = NUMB_SHADING;
+    Sex _sex = NUMB_SEXES;
 
-    Sex _sex;
-    
-    int _updateVal;
-    int _currentlyBeingUpdated;
+    void _initializeShading();
 
-    vector<LogVar> _u;
-    vector<LogVar> _alpha;
-    unordered_map<FamilyWrapper*,vector<LogVar>> _beta;
-    unordered_map<FamilyWrapper*,vector<LogVar>> _gamma;
+    void _initializeSexUsingMate();
+    void _initializeSexFromData();
+    void _initializeSex();
 
-    vector<LogVar> _A;
-    unordered_map<FamilyWrapper*,vector<LogVar>> _C;
+    void _initializeSexAndShading();
 
-
-    LogVar _computeUValRootCase(int x);
-    LogVar _computeUValNonRootCase(FamilyWrapper* upFamily, int x);
-    LogVar _computeUVal(int x);
-
-    LogVar _computeAlphaVal(FamilyWrapper* family, const unordered_map<Person*,unsigned int>& X);
-    LogVar _computeBetaValue(FamilyWrapper* family, int x);
-    LogVar _computeGammaValue(FamilyWrapper* family, const unordered_map<Person*,unsigned int>& X, int x);
-
-    LogVar _getUVal(int x);
-    LogVar _getAlphaVal(FamilyWrapper* family, const unordered_map<Person*,unsigned int>& X);
-    LogVar _getBetaValue(FamilyWrapper* family, int x);
-    LogVar _getGammaValue(FamilyWrapper* family, const unordered_map<Person*,unsigned int>& X, int x);
-    
 public:
 
     Person(int id, Data* data);
 
+    Allele getAllele();
+    Shading getShading();
     Sex getSex();
     int getHiddenStatesN();
     int getObservedStatesN();
 
-    /* -------- Dynamic Programming Functions -------- */
-    LogVar getUVal(int x);
-    LogVar getAlphaVal(FamilyWrapper* family, const unordered_map<Person*,unsigned int>& X);
-    LogVar getBetaValue(FamilyWrapper* family, int x);
-    LogVar getGammaValue(FamilyWrapper* family, const unordered_map<Person*,unsigned int>& X, int x);
-
-    /* -------- P(n_x = i | Y) -------- */
-    LogVar getAValue(int x);
+    /* TESTS */
+    static void PersonTests();
+    static void getShadingTests();
+    static void getSexTests();
+    static void getHiddenStatesNTests();
+    static void getObservedStatesNTests();
 };
 
 class FamilyWrapper : public Family {
 
-    vector<LogVar> _B;
-
 public:
 
-    FamilyWrapper(int id, vector<Person*> parents, vector<Person*> children);
+    FamilyWrapper(int id, unordered_set<Person*> parents, unordered_set<Person*> children): Family(id,unordered_set<Node*>(parents.begin(),parents.end()),unordered_set<Node*>(children.begin(),children.end())) {}
 
-    /* --------      P(^(f)_x = X | Y)      -------- */
-    /* -------- P(^(f)_x = X , n_x = i | Y) -------- */
-    LogVar getBValue(const unordered_map<Person*,unsigned int>& X);
-    LogVar getCValue(Person* child, const unordered_map<Person*,unsigned int>& X, int x);
+    /* TESTS */
+    static void FamilyWrapperTests();
+
 };
 
 
@@ -88,7 +69,7 @@ class DAH : public DirectedAcyclicHypergraph {
 
 public:
 
-    DAH(const vector<FamilyWrapper*>& families);
+    DAH(const unordered_set<FamilyWrapper*>& families) : DirectedAcyclicHypergraph(unordered_set<Family*>(families.begin(),families.end())) {}
 
     LogVar getAValue(Person* node, int x);
     LogVar getBValue(FamilyWrapper* family, const unordered_map<Person*,unsigned int>& X);
@@ -100,6 +81,18 @@ public:
 
     void updateRootProbs();
     double getRootProb(Person* root, int x);
+
+    /* TESTS */
+    static void DAHTests();
+    static void getAValueTests();
+    static void getBValueTests();
+    static void getCValueTests();
+    static void calcAValsTests();
+    static void calcBValsTests();
+    static void calcCValsTests();
+    static void updateRootProbsTests();
+    static void getRootProbTests();
+
 };
 
 

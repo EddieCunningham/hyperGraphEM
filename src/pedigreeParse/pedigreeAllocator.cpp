@@ -32,14 +32,14 @@ Person* PedigreeAllocator::allocatePerson(int id, Data* data) {
     return person;
 }
 
-FamilyWrapper* PedigreeAllocator::allocateFamilyWrapper(int id, vector<Person*> parents, vector<Person*> children) {
+FamilyWrapper* PedigreeAllocator::allocateFamilyWrapper(int id, unordered_set<Person*> parents, unordered_set<Person*> children) {
 
     FamilyWrapper* familyWrapper = new FamilyWrapper(id,parents,children);
     _allFamilies[id] = familyWrapper;
     return familyWrapper;
 }
 
-DAH* PedigreeAllocator::allocateDAH(const vector<FamilyWrapper*>& families) {
+DAH* PedigreeAllocator::allocateDAH(const unordered_set<FamilyWrapper*>& families) {
 
     _dah = new DAH(families);
     return _dah;

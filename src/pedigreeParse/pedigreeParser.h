@@ -39,10 +39,16 @@ class PedigreeParser {
 
 public:
 
-    void printRawJSON();
     PedigreeParser(string filename);
+    void printRawJSON();
     void parseJSON(PedigreeAllocator& pedigreeAllocator);
     DAH* getDAH();
+
+    /* TESTS */
+    static void PedigreeParserTests();
+    static void printRawJSONTests();
+    static void parseJSONTests();
+    static void getDAHTests();
 
 };
 

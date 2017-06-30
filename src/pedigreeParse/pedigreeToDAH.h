@@ -19,6 +19,15 @@ public:
     DAH* getDAH() {
         return _dah;
     }
+
+    Person* getPerson(int id) {
+        return _allocator.getPerson(id);
+    }
+
+    /* TESTS */
+    static void pedigreeToDAHTests();
+    static void getDAHTests();
+    static void getPersonTests();
 };
 
 

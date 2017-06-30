@@ -2,6 +2,7 @@
 #include <unordered_set>
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/hyperGraph.h"
 #include "/Users/Eddie/hyperGraphEM/src/tests/testMain.h"
+#include "/Users/Eddie/hyperGraphEM/src/pedigreeParse/pedigreeToDAH.h"
 
 void testNodeInit() {
 
@@ -22,11 +23,11 @@ void testFamilyInit() {
 
     /* -------------------------------------- */
 
-    Family f_1(1,vector<Node*>{a,b,c},vector<Node*>({}));
-    Family f_2(2,vector<Node*>{a,b},vector<Node*>({c}));
+    Family f_1(1,unordered_set<Node*>{a,b,c},unordered_set<Node*>({}));
+    Family f_2(2,unordered_set<Node*>{a,b},unordered_set<Node*>({c}));
 }
 
-pair<vector<Node*>,vector<Family*>> testDAH() {
+pair<unordered_set<Node*>,unordered_set<Family*>> testDAH() {
     Node* n1 = new Node(1,nullptr);
     Node* n2 = new Node(2,nullptr);
     Node* n3 = new Node(3,nullptr);
@@ -60,37 +61,37 @@ pair<vector<Node*>,vector<Family*>> testDAH() {
     Node* n31 = new Node(31,nullptr);
     Node* n32 = new Node(32,nullptr);
     Node* n33 = new Node(33,nullptr);
-    vector<Node*> nodes({n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14,n15,n16,n17,n18,n19,n20,n21,n22,n23,n24,n25,n26,n27,n28,n29,n30,n31,n32,n33});
+    unordered_set<Node*> nodes({n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14,n15,n16,n17,n18,n19,n20,n21,n22,n23,n24,n25,n26,n27,n28,n29,n30,n31,n32,n33});
 
-    Family* f1 = new Family(1,vector<Node*>({n1,n2,n3}),vector<Node*>({n6,n7}));
+    Family* f1 = new Family(1,unordered_set<Node*>({n1,n2,n3}),unordered_set<Node*>({n6,n7}));
     f1->id = 1;
-    Family* f2 = new Family(2,vector<Node*>({n4,n5,n6}),vector<Node*>({n12,n17}));
+    Family* f2 = new Family(2,unordered_set<Node*>({n4,n5,n6}),unordered_set<Node*>({n12,n17}));
     f2->id = 2;
-    Family* f3 = new Family(3,vector<Node*>({n8,n9}),vector<Node*>({n11}));
+    Family* f3 = new Family(3,unordered_set<Node*>({n8,n9}),unordered_set<Node*>({n11}));
     f3->id = 3;
-    Family* f4 = new Family(4,vector<Node*>({n10,n11,n12}),vector<Node*>({n20,n21}));
+    Family* f4 = new Family(4,unordered_set<Node*>({n10,n11,n12}),unordered_set<Node*>({n20,n21}));
     f4->id = 4;
-    Family* f5 = new Family(5,vector<Node*>({n13,n14}),vector<Node*>({n16}));
+    Family* f5 = new Family(5,unordered_set<Node*>({n13,n14}),unordered_set<Node*>({n16}));
     f5->id = 5;
-    Family* f6 = new Family(6,vector<Node*>({n12,n15,n16}),vector<Node*>({n22,n23,n24}));
+    Family* f6 = new Family(6,unordered_set<Node*>({n12,n15,n16}),unordered_set<Node*>({n22,n23,n24}));
     f6->id = 6;
-    Family* f7 = new Family(7,vector<Node*>({n17,n18,n19}),vector<Node*>({n32,n33}));
+    Family* f7 = new Family(7,unordered_set<Node*>({n17,n18,n19}),unordered_set<Node*>({n32,n33}));
     f7->id = 7;
-    Family* f8 = new Family(8,vector<Node*>({n24,n25}),vector<Node*>({n27}));
+    Family* f8 = new Family(8,unordered_set<Node*>({n24,n25}),unordered_set<Node*>({n27}));
     f8->id = 8;
-    Family* f9 = new Family(9,vector<Node*>({n26,n12}),vector<Node*>({n28,n29}));
+    Family* f9 = new Family(9,unordered_set<Node*>({n26,n12}),unordered_set<Node*>({n28,n29}));
     f9->id = 9;
-    Family* f10 = new Family(10,vector<Node*>({n29,n30}),vector<Node*>({n31}));
+    Family* f10 = new Family(10,unordered_set<Node*>({n29,n30}),unordered_set<Node*>({n31}));
     f10->id = 10;
-    vector<Family*> families({f1,f2,f3,f4,f5,f6,f7,f8,f9,f10});
+    unordered_set<Family*> families({f1,f2,f3,f4,f5,f6,f7,f8,f9,f10});
 
-    return pair<vector<Node*>,vector<Family*>>(nodes,families);
+    return pair<unordered_set<Node*>,unordered_set<Family*>>(nodes,families);
 }
 
-void deleteDAHTest(pair<vector<Node*>,vector<Family*>> nodesAndFamilies) {
+void deleteDAHTest(pair<unordered_set<Node*>,unordered_set<Family*>> nodesAndFamilies) {
 
-    vector<Node*> nodes = nodesAndFamilies.first;
-    vector<Family*> families = nodesAndFamilies.second;
+    unordered_set<Node*> nodes = nodesAndFamilies.first;
+    unordered_set<Family*> families = nodesAndFamilies.second;
 
     for(Family* f:families) {
         delete f;
@@ -141,17 +142,45 @@ void compareResults(NodeIterator& returned, unordered_set<Node*> expected) {
     }
 }
 
-Node* getNode(const vector<Node*>& nodes, int number) {
-    return nodes.at(number-1);
+void compareResults(NodeIterator& returned, unordered_set<int> expected) {
+
+    cout << "\n --------- \n " << endl;
+    for(Node* node = returned.getCurrent(); node != nullptr; node = returned.next()) {
+        int id = node->id;
+        if(expected.find(id) == expected.end()) {
+            failWithMessage(__FILE__,__LINE__,"This node should not be here! ("+to_string(id)+")");
+        }
+        cout << "Found node: " << id << endl;
+        expected.erase(id);
+    }
+    if(expected.size() > 0) {
+        failWithMessage(__FILE__,__LINE__,"Didn't iterate over all of the families!");
+    }
 }
 
-Family* getFamily(const vector<Family*>& families, int number) {
-    return families.at(number-1);
+Node* getNode(const unordered_set<Node*>& nodes, int number) {
+    for(Node* node: nodes) {
+        if(node->id == number) {
+            return node;
+        }
+    }
+    failWithMessage(__FILE__,__LINE__,"DIDNT FIND THE THING");
+    return nullptr;
+}
+
+Family* getFamily(const unordered_set<Family*>& families, int number) {
+    for(Family* family: families) {
+        if(family->id == number) {
+            return family;
+        }
+    }
+    failWithMessage(__FILE__,__LINE__,"DIDNT FIND THE THING");
+    return nullptr;
 }
 
 void testGetParentsNode() {
-    pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
+    pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
     DirectedAcyclicHypergraph dah(dahPair.second);
 
     unordered_set<Node*> expected;
@@ -194,8 +223,8 @@ void testGetParentsNode() {
 }
 
 void testGetChildrenNode() {
-    pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
+    pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
     DirectedAcyclicHypergraph dah(dahPair.second);
 
     unordered_set<Node*> expected;
@@ -235,9 +264,9 @@ void testGetChildrenNode() {
 }
 
 void testGetFamiliesNode() {
-    pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
-    vector<Family*> families = dahPair.second;
+    pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
+    unordered_set<Family*> families = dahPair.second;
     DirectedAcyclicHypergraph dah(families);
 
     unordered_set<Family*> expected;
@@ -275,9 +304,9 @@ void testGetFamiliesNode() {
 }
 
 void testGetFamiliesIfParentNode() {
-   pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
-    vector<Family*> families = dahPair.second;
+   pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
+    unordered_set<Family*> families = dahPair.second;
     DirectedAcyclicHypergraph dah(families);
 
     unordered_set<Family*> expected;
@@ -313,9 +342,9 @@ void testGetFamiliesIfParentNode() {
 }
 
 void testGetFamiliesIfChildNode() {
-    pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
-    vector<Family*> families = dahPair.second;
+    pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
+    unordered_set<Family*> families = dahPair.second;
     DirectedAcyclicHypergraph dah(families);
 
     unordered_set<Family*> expected;
@@ -349,9 +378,9 @@ void testGetFamiliesIfChildNode() {
 }
 
 void testGetNodesInFamilyFamily() {
-    pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
-    vector<Family*> families = dahPair.second;
+    pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
+    unordered_set<Family*> families = dahPair.second;
     DirectedAcyclicHypergraph dah(families);
 
     unordered_set<Node*> expected;
@@ -387,9 +416,9 @@ void testGetNodesInFamilyFamily() {
 }
 
 void testGetParentsFamily() {
-    pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
-    vector<Family*> families = dahPair.second;
+    pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
+    unordered_set<Family*> families = dahPair.second;
     DirectedAcyclicHypergraph dah(families);
 
     unordered_set<Node*> expected;
@@ -421,9 +450,9 @@ void testGetParentsFamily() {
 }
 
 void testGetChildrenFamily() {
-    pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
-    vector<Family*> families = dahPair.second;
+    pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
+    unordered_set<Family*> families = dahPair.second;
     DirectedAcyclicHypergraph dah(families);
 
     unordered_set<Node*> expected;
@@ -454,9 +483,9 @@ void testGetChildrenFamily() {
 }
 
 void testGetAllFromFamilyExceptFromNode() {
-    pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
-    vector<Family*> families = dahPair.second;
+    pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
+    unordered_set<Family*> families = dahPair.second;
     DirectedAcyclicHypergraph dah(families);
 
     unordered_set<Node*> expected;
@@ -473,17 +502,17 @@ void testGetAllFromFamilyExceptFromNode() {
     Node* n24 = getNode(nodes,24);
     Node* n25 = getNode(nodes,25);
     Node* n27 = getNode(nodes,27);
-    result = dah.getAllFromFamilyExceptFromNode(f6,n12);
+    result = dah.getAllFromFamilyExceptFromNode(f6,n12,false);
     expected = unordered_set<Node*>({n13,n14,n15,n16,n22,n23,n24,n25,n27});
     compareResults(result,expected);
     /* ------------------------------------- */
-    result = dah.getAllFromFamilyExceptFromNode(f6,n12);
+    result = dah.getAllFromFamilyExceptFromNode(f6,n12,false);
     expected = unordered_set<Node*>({n13,n14,n15,n16,n22,n23,n24,n25,n27});
     compareResults(result,expected);
     /* ------------------------------------- */
     Family* f10 = getFamily(families,10);
     Node* n31 = getNode(nodes,31);
-    result = dah.getAllFromFamilyExceptFromNode(f10,n31);
+    result = dah.getAllFromFamilyExceptFromNode(f10,n31,false);
     expected.insert(nodes.begin(),nodes.end());
     expected.erase(n31);
     compareResults(result,expected);
@@ -493,9 +522,9 @@ void testGetAllFromFamilyExceptFromNode() {
 }
 
 void testGetNodesUpFrom() {
-    pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
-    vector<Family*> families = dahPair.second;
+    pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
+    unordered_set<Family*> families = dahPair.second;
     DirectedAcyclicHypergraph dah(families);
 
     unordered_set<Node*> expected;
@@ -514,20 +543,20 @@ void testGetNodesUpFrom() {
     Node* n19 = getNode(nodes,19);
     Node* n32 = getNode(nodes,32);
     Node* n33 = getNode(nodes,33);
-    result = dah.getNodesUpFrom(n12);
+    result = dah.getNodesUpFrom(n12,false);
     expected = unordered_set<Node*>({n1,n2,n3,n4,n5,n6,n7,n17,n18,n19,n32,n33});
     compareResults(result,expected);
     /* ------------------------------------- */
-    result = dah.getNodesUpFrom(n12);
+    result = dah.getNodesUpFrom(n12,false);
     expected = unordered_set<Node*>({n1,n2,n3,n4,n5,n6,n7,n17,n18,n19,n32,n33});
     compareResults(result,expected);
     /* ------------------------------------- */
-    result = dah.getNodesUpFrom(n1);
+    result = dah.getNodesUpFrom(n1,false);
     expected = unordered_set<Node*>({});
     compareResults(result,expected);
     /* ------------------------------------- */
     Node* n31 = getNode(nodes,31);
-    result = dah.getNodesUpFrom(n31);
+    result = dah.getNodesUpFrom(n31,false);
     expected.insert(nodes.begin(),nodes.end());
     expected.erase(n31);
     compareResults(result,expected);
@@ -537,9 +566,9 @@ void testGetNodesUpFrom() {
 }
 
 void testGetNodesUpFromExceptFromFamily() {
-    pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
-    vector<Family*> families = dahPair.second;
+    pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
+    unordered_set<Family*> families = dahPair.second;
     DirectedAcyclicHypergraph dah(families);
 
     unordered_set<Node*> expected;
@@ -547,17 +576,17 @@ void testGetNodesUpFromExceptFromFamily() {
     /* ------------------------------------- */
     Node* n12 = getNode(nodes,12);
     Family* f2 = getFamily(families,2);
-    result = dah.getNodesUpFromExceptFromFamily(n12,f2);
+    result = dah.getNodesUpFromExceptFromFamily(n12,f2,false);
     expected = unordered_set<Node*>({});
     compareResults(result,expected);
     /* ------------------------------------- */
-    result = dah.getNodesUpFromExceptFromFamily(n12,f2);
+    result = dah.getNodesUpFromExceptFromFamily(n12,f2,false);
     expected = unordered_set<Node*>({});
     compareResults(result,expected);
     /* ------------------------------------- */
     Node* n1 = getNode(nodes,1);
     Family* f1 = getFamily(families,1);
-    result = dah.getNodesUpFromExceptFromFamily(n1,f1);
+    result = dah.getNodesUpFromExceptFromFamily(n1,f1,false);
     expected = unordered_set<Node*>({});
     compareResults(result,expected);
 
@@ -566,9 +595,9 @@ void testGetNodesUpFromExceptFromFamily() {
 }
 
 void testGetNodesDownFrom() {
-    pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
-    vector<Family*> families = dahPair.second;
+    pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
+    unordered_set<Family*> families = dahPair.second;
     DirectedAcyclicHypergraph dah(families);
 
     unordered_set<Node*> expected;
@@ -595,22 +624,22 @@ void testGetNodesDownFrom() {
     Node* n29 = getNode(nodes,29);
     Node* n30 = getNode(nodes,30);
     Node* n31 = getNode(nodes,31);
-    result = dah.getNodesDownFrom(n12);
+    result = dah.getNodesDownFrom(n12,false);
     expected = unordered_set<Node*>({n8,n9,n10,n11,n13,n14,n15,n16,n20,n21,n22,n23,n24,n25,n26,n27,n28,n29,n30,n31});
     compareResults(result,expected);
     /* ------------------------------------- */
-    result = dah.getNodesDownFrom(n12);
+    result = dah.getNodesDownFrom(n12,false);
     expected = unordered_set<Node*>({n8,n9,n10,n11,n13,n14,n15,n16,n20,n21,n22,n23,n24,n25,n26,n27,n28,n29,n30,n31});
     compareResults(result,expected);
     /* ------------------------------------- */
     Node* n1 = getNode(nodes,1);
-    result = dah.getNodesDownFrom(n1);
+    result = dah.getNodesDownFrom(n1,false);
     expected = unordered_set<Node*>({});
     expected.insert(nodes.begin(),nodes.end());
     expected.erase(n1);
     compareResults(result,expected);
     /* ------------------------------------- */
-    result = dah.getNodesDownFrom(n31);
+    result = dah.getNodesDownFrom(n31,false);
     expected = unordered_set<Node*>({});
     compareResults(result,expected);
 
@@ -618,9 +647,9 @@ void testGetNodesDownFrom() {
 }
 
 void testGetNodesDownFromExceptFromFamily() {
-    pair<vector<Node*>,vector<Family*>> dahPair = testDAH();
-    vector<Node*> nodes = dahPair.first;
-    vector<Family*> families = dahPair.second;
+    pair<unordered_set<Node*>,unordered_set<Family*>> dahPair = testDAH();
+    unordered_set<Node*> nodes = dahPair.first;
+    unordered_set<Family*> families = dahPair.second;
     DirectedAcyclicHypergraph dah(families);
 
     unordered_set<Node*> expected;
@@ -642,21 +671,199 @@ void testGetNodesDownFromExceptFromFamily() {
     Node* n29 = getNode(nodes,29);
     Node* n30 = getNode(nodes,30);
     Node* n31 = getNode(nodes,31);
-    result = dah.getNodesDownFromExceptFromFamily(n12,f4);
+    result = dah.getNodesDownFromExceptFromFamily(n12,f4,false);
     expected = unordered_set<Node*>({n13,n14,n15,n16,n22,n23,n24,n25,n26,n27,n28,n29,n30,n31});
     compareResults(result,expected);
     /* ------------------------------------- */
-    result = dah.getNodesDownFromExceptFromFamily(n12,f4);
+    result = dah.getNodesDownFromExceptFromFamily(n12,f4,false);
     expected = unordered_set<Node*>({n13,n14,n15,n16,n22,n23,n24,n25,n26,n27,n28,n29,n30,n31});
     compareResults(result,expected);
     /* ------------------------------------- */
     Node* n1 = getNode(nodes,1);
     Family* f1 = getFamily(families,1);
-    result = dah.getNodesDownFromExceptFromFamily(n1,f1);
+    result = dah.getNodesDownFromExceptFromFamily(n1,f1,false);
     expected = unordered_set<Node*>({});
     compareResults(result,expected);
 
     deleteDAHTest(dahPair);
+}
+
+/* ------------------------------------------------------------------------------------------------------- */
+
+
+void testGetAllFromFamilyExceptFromNodeWithCycle() {
+
+    pedigreeToDAH pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
+    DAH* dah = pedigree.getDAH();
+
+    unordered_set<int> expected;
+    NodeIterator result;
+    /* ------------------------------------- */
+
+    Node* n1 = pedigree.getPerson(1);
+    Family* fam = *(n1->getDownFamilies().begin());
+    result = dah->getAllFromFamilyExceptFromNode(fam,n1,false);
+    expected = unordered_set<int>({2,3,4,5,6,7,8,9});
+    compareResults(result,expected);
+
+    /* ------------------------------------- */
+
+    Node* n3 = pedigree.getPerson(3);
+    fam = *(n3->getDownFamilies().begin());
+    result = dah->getAllFromFamilyExceptFromNode(fam,n3,false);
+    expected = unordered_set<int>({1,2,4,5,6,7,8,9});
+    compareResults(result,expected);
+
+    /* ------------------------------------- */
+
+    Node* n;
+    for(int i=1; i<10; ++i) {
+        n = pedigree.getPerson(i);
+        fam = *(n->getFamilies().begin());
+        result = dah->getAllFromFamilyExceptFromNode(fam,n,false);
+        expected = unordered_set<int>({1,2,3,4,5,6,7,8,9});
+        expected.erase(i);
+        compareResults(result,expected);
+    }
+}
+
+void testGetNodesUpFromWithCycle() {
+    pedigreeToDAH pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
+    DAH* dah = pedigree.getDAH();
+
+    unordered_set<int> expected;
+    NodeIterator result;
+    /* ------------------------------------- */
+
+
+    Node* n6 = pedigree.getPerson(6);
+    result = dah->getNodesUpFrom(n6,false);
+    expected = unordered_set<int>({1,2,3,4,5,7,8,9});
+    compareResults(result,expected);
+
+    /* ------------------------------------- */
+
+
+    Node* n8 = pedigree.getPerson(8);
+    result = dah->getNodesUpFrom(n8,false);
+    expected = unordered_set<int>({1,2,3,4,5,7,6,9});
+    compareResults(result,expected);
+}
+
+void testGetNodesUpFromExceptFromFamilyWithCycle() {
+    pedigreeToDAH pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
+    DAH* dah = pedigree.getDAH();
+
+    unordered_set<int> expected;
+    NodeIterator result;
+    /* ------------------------------------- */
+
+
+    Node* n6 = pedigree.getPerson(6);
+    Family* fam = *(n6->getDownFamilies().begin());
+    result = dah->getNodesUpFromExceptFromFamily(n6,fam,false);
+    expected = unordered_set<int>({1,2,3,4,5,7});
+    compareResults(result,expected);
+
+    /* ------------------------------------- */
+
+
+    Node* n8 = pedigree.getPerson(8);
+    fam = *(n8->getDownFamilies().begin());
+    result = dah->getNodesUpFromExceptFromFamily(n8,fam,false);
+    expected = unordered_set<int>({1,2,3,4,5,7});
+    compareResults(result,expected);
+
+
+
+}
+
+void testGetNodesDownFromWithCycle() {
+    pedigreeToDAH pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
+    DAH* dah = pedigree.getDAH();
+
+    unordered_set<int> expected;
+    NodeIterator result;
+    /* ------------------------------------- */
+
+
+    Node* n3 = pedigree.getPerson(3);
+    result = dah->getNodesDownFrom(n3,false);
+    expected = unordered_set<int>({1,2,4,5,6,7,8,9});
+    compareResults(result,expected);
+
+    /* ------------------------------------- */
+
+
+    Node* n4 = pedigree.getPerson(4);
+    result = dah->getNodesDownFrom(n4,false);
+    expected = unordered_set<int>({1,2,3,5,6,7,8,9});
+    compareResults(result,expected);
+
+
+
+}
+
+void testGetNodesDownFromExceptFromFamilyWithCycle() {
+    pedigreeToDAH pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
+    DAH* dah = pedigree.getDAH();
+
+    unordered_set<int> expected;
+    NodeIterator result;
+    /* ------------------------------------- */
+
+    Node* n6 = pedigree.getPerson(6);
+    Family* fam = *(n6->getDownFamilies().begin());
+    result = dah->getNodesDownFromExceptFromFamily(n6,fam,false);
+    expected = unordered_set<int>({});
+    compareResults(result,expected);
+    
+    /* ------------------------------------- */
+    
+    fam = *(n6->getUpFamilies().begin());
+    result = dah->getNodesDownFromExceptFromFamily(n6,fam,false);
+    expected = unordered_set<int>({1,2,4,7,8,9});
+    compareResults(result,expected);
+
+    /* ------------------------------------- */
+
+}
+
+
+void nodeIteratorHashingTest() {
+    pedigreeToDAH pedigree("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/test_cycle.json");
+    DAH* dah = pedigree.getDAH();
+
+    unordered_set<int> expected;
+    NodeIterator result;
+    unordered_set<int> andBack;
+    /* ------------------------------------- */
+
+    Node* n6 = pedigree.getPerson(6);
+    Family* fam = *(n6->getDownFamilies().begin());
+    result = dah->getNodesDownFromExceptFromFamily(n6,fam,false);
+    string hash = result.getHash();
+
+    // andBack = NodeIterator::setFromHash(hash);
+    expected = unordered_set<int>({});
+
+    // if(andBack != expected) {
+    //     failWithMessage(__FILE__,__LINE__,"sets didnt match");
+    // }
+    
+    /* ------------------------------------- */
+    
+    fam = *(n6->getUpFamilies().begin());
+    result = dah->getNodesDownFromExceptFromFamily(n6,fam,false);
+    hash = result.getHash();
+
+    // andBack = NodeIterator::setFromHash(hash);
+    expected = unordered_set<int>({1,2,4,7,8,9});
+    // if(andBack != expected) {
+    //     failWithMessage(__FILE__,__LINE__,"sets didnt match");
+    // }
+
+    /* ------------------------------------- */
 }
 
 
@@ -676,6 +883,15 @@ void allDAHTests() {
     testGetNodesUpFromExceptFromFamily();
     testGetNodesDownFrom();
     testGetNodesDownFromExceptFromFamily();
+
+    testGetAllFromFamilyExceptFromNodeWithCycle();
+    testGetNodesUpFromWithCycle();
+    testGetNodesUpFromExceptFromFamilyWithCycle();
+    testGetNodesDownFromWithCycle();
+    testGetNodesDownFromExceptFromFamilyWithCycle();
+
+
+    nodeIteratorHashingTest();
 }
 
 

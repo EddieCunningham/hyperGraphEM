@@ -4,25 +4,25 @@
 Data* HyperGraphAllocator::allocateData(string jsonifiedData) {
 
     Data* data = new Data(jsonifiedData);
-    _allData.push_back(data);
+    _allData.insert(data);
     return data;
 }
 
 Node* HyperGraphAllocator::allocateNode(int id, Data* data) {
 
     Node* node = new Node(id,data);
-    _allNodes.push_back(node);
+    _allNodes.insert(node);
     return node;
 }
 
-Family* HyperGraphAllocator::allocateFamily(int id, vector<Node*> parents, vector<Node*> children) {
+Family* HyperGraphAllocator::allocateFamily(int id, unordered_set<Node*> parents, unordered_set<Node*> children) {
 
     Family* family = new Family(id,parents,children);
-    _allFamilies.push_back(family);
+    _allFamilies.insert(family);
     return family;
 }
 
-DirectedAcyclicHypergraph* HyperGraphAllocator::allocateDAH(const vector<Family*>& families) {
+DirectedAcyclicHypergraph* HyperGraphAllocator::allocateDAH(const unordered_set<Family*>& families) {
 
     _dah = new DirectedAcyclicHypergraph(families);
     return _dah;

@@ -3,7 +3,6 @@
 
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/nodeIterator.h"
 #include "/Users/Eddie/hyperGraphEM/src/messages/errorMessages.h"
-#include <vector>
 #include <unordered_set>
 
 using namespace std;
@@ -12,6 +11,9 @@ class Data {
     string _jsonifiedData;
 public:
     Data(string jsonifiedData): _jsonifiedData(jsonifiedData) {}
+    string getData() {
+        return _jsonifiedData;
+    }
 };
 
 class Node;
@@ -26,16 +28,17 @@ class Node {
     friend class NodeIterator;
     friend class DirectedAcyclicHypergraph;
 
-    vector<Family*> _upFamilies;
-    vector<Family*> _downFamilies;
+    unordered_set<Family*> _upFamilies;
+    unordered_set<Family*> _downFamilies;
     Data* _data;
 
     void _becomeParentOfFamily(Family* family);
     void _becomeChildOfFamily(Family* family);
 
-    vector<Family*> _getUpFamilies() const;
-    vector<Family*> _getDownFamilies() const;
-    vector<Family*> _getFamilies() const;
+protected:
+    unordered_set<Family*> _getUpFamilies() const;
+    unordered_set<Family*> _getDownFamilies() const;
+    unordered_set<Family*> _getFamilies() const;
 
 public:
     int id;
@@ -45,6 +48,14 @@ public:
 
     unordered_set<Family*> getUpFamilies() const;
     unordered_set<Family*> getDownFamilies() const;
+    unordered_set<Family*> getFamilies() const;
+
+    /* TESTS */
+    static void getDataTests();
+    static void NodeTests();
+    static void getUpFamiliesTests();
+    static void getDownFamiliesTests();
+    static void getFamiliesTests();
 };
 
 /* --------------------------------------- */
@@ -53,12 +64,13 @@ class Family {
     friend class NodeIterator;
     friend class DirectedAcyclicHypergraph;
 
-    vector<Node*> _parents;
-    vector<Node*> _children;
+    unordered_set<Node*> _parents;
+    unordered_set<Node*> _children;
 
-    vector<Node*> _getParents() const;
-    vector<Node*> _getChildren() const;
-    vector<Node*> _getNodes() const;
+protected:
+    unordered_set<Node*> _getParents() const;
+    unordered_set<Node*> _getChildren() const;
+    unordered_set<Node*> _getNodes() const;
 
 protected:
     void _addParent(Node* parent);
@@ -68,17 +80,23 @@ public:
     int id;
 
     Family(int id);
-    Family(int id, vector<Node*> parents, vector<Node*> children);
+    Family(int id, unordered_set<Node*> parents, unordered_set<Node*> children);
 
     unordered_set<Node*> getParents() const;
     unordered_set<Node*> getChildren() const;
     unordered_set<Node*> getNodes() const;
+
+    /* TESTS */
+    static void FamilyTests();
+    static void getParentsTests();
+    static void getChildrenTests();
+    static void getNodesTests();
 };
 
 /* --------------------------------------- */
 
 class DirectedAcyclicHypergraph {
-    vector<Family*> _families;
+    unordered_set<Family*> _families;
 
 protected:
     void _addFamily(Family* family);
@@ -86,8 +104,9 @@ protected:
 public:
 
     DirectedAcyclicHypergraph() {}
-    DirectedAcyclicHypergraph(const vector<Family*>& families): _families(families) {}
+    DirectedAcyclicHypergraph(const unordered_set<Family*>& families): _families(families) {}
 
+    NodeIterator getAllNodesInIterator() const;
     unordered_set<Node*> getAllNodes() const;
     unordered_set<Family*> getAllFamilies() const;
 
@@ -110,17 +129,39 @@ public:
     unordered_set<Node*> getChildren(Family* family) const;
 
     // !(e,n)
-    NodeIterator getAllFromFamilyExceptFromNode(Family* family, Node* node) const;
+    // ↑(n),↓(n)\!(e,n)
+    NodeIterator getAllFromFamilyExceptFromNode(Family* family, Node* node, bool keepFirstNode) const;
+    NodeIterator getAllNodesExceptFromFamily(Family* family, Node* node, bool keepFirstNode) const;
 
     // ↑(n)
     // ↑(n)\!(e,n)
-    NodeIterator getNodesUpFrom(Node* node) const;
-    NodeIterator getNodesUpFromExceptFromFamily(Node* node, Family* family) const;
+    NodeIterator getNodesUpFrom(Node* node, bool keepFirstNode) const;
+    NodeIterator getNodesUpFromExceptFromFamily(Node* node, Family* family, bool keepFirstNode) const;
 
     // ↓(n)
     // ↓(n)\!(e,n)    
-    NodeIterator getNodesDownFrom(Node* node) const;
-    NodeIterator getNodesDownFromExceptFromFamily(Node* node, Family* family) const;
+    NodeIterator getNodesDownFrom(Node* node, bool keepFirstNode = false) const;
+    NodeIterator getNodesDownFromExceptFromFamily(Node* node, Family* family, bool keepFirstNode) const;
+
+
+
+    /* TESTS */
+    static void DirectedAcyclicHypergraphTests();
+    static void getAllNodesInIteratorTests();
+    static void getAllNodesTests();
+    static void getAllFamiliesTests();
+    static void getParentsTests();
+    static void getChildrenTests();
+    static void getFamiliesTests();
+    static void getFamiliesIfParentTests();
+    static void getFamiliesIfChildTests();
+    static void getNodesInFamilyTests();
+    static void getAllFromFamilyExceptFromNodeTests();
+    static void getAllNodesExceptFromFamilyTests();
+    static void getNodesUpFromTests();
+    static void getNodesUpFromExceptFromFamilyTests();
+    static void getNodesDownFromTests();
+    static void getNodesDownFromExceptFromFamilyTests();
 };
 
 

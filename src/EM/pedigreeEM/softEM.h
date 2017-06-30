@@ -9,6 +9,11 @@
 using namespace std;
 
 
+class Person;
+class FamilyWrapper;
+class DAH;
+
+
 void sortMates(Person* mateA, Person* mateB, Person* mother, Person* father);
 
 class PedigreeSoftEMOptimizer {
@@ -38,6 +43,14 @@ public:
 
     void EStep();
     void MStep();
+
+    /* TESTS */
+    static void PedigreeSoftEMOptimizerTests();
+    static void getTransitionProbTests();
+    static void getEmissionProbTests();
+    static void getRootProbTests();
+    static void EStepTests();
+    static void MStepTests();
 };
 
 class PedigreeEMModel {
@@ -49,6 +62,11 @@ public:
 
     void train(const vector<DAH*>& trainingSet);
     void predict(const DAH* test);
+
+    /* TESTS */
+    static void PedigreeEMModelTests();
+    static void trainTests();
+    static void predictTests();
 };
 
 

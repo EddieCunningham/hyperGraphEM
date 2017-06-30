@@ -4,6 +4,7 @@
 #include "/Users/Eddie/hyperGraphEM/src/EM/pedigreeEM/pedigreeHyperGraph.h"
 using namespace std;
 #include <vector>
+#include <unordered_set>
 
 class PedigreeAllocator {
 
@@ -26,10 +27,8 @@ public:
 
     Data* allocateData(string jsonifiedData);
     Person* allocatePerson(int id, Data* data);
-    FamilyWrapper* allocateFamilyWrapper(int id, vector<Person*> parents, vector<Person*> children);
-    DAH* allocateDAH(const vector<FamilyWrapper*>& families);
-
-
+    FamilyWrapper* allocateFamilyWrapper(int id, unordered_set<Person*> parents, unordered_set<Person*> children);
+    DAH* allocateDAH(const unordered_set<FamilyWrapper*>& families);
 
     ~PedigreeAllocator() {
         _deallocateData();
@@ -37,6 +36,16 @@ public:
         _deallocateFamilyWrappers();
         _deallocateDAH();
     }
+
+    /* TESTS */
+    static void PedigreeAllocatorTests();
+    static void getPersonTests();
+    static void getFamilyTests();
+    static void getDAHTests();
+    static void allocateDataTests();
+    static void allocatePersonTests();
+    static void allocateFamilyWrapperTests();
+    static void allocateDAHTests();
 };
 
 

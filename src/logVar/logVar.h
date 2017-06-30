@@ -98,6 +98,9 @@ public:
     void operator /=(double a);
 
     double val()const;
+
+    /* TESTS */
+    static void LogVarTests();
 };
 
 

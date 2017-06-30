@@ -23,6 +23,12 @@ public:
     int getIndexFor(T key);
     const unordered_map<T,unsigned int> getMap();
     bool increment();
+
+    /* TESTS */
+    static void MapIteratorTests();
+    static void getIndexForTests();
+    static void getMapTests();
+    static void incrementTests();
 };
 
 
@@ -69,6 +75,25 @@ bool MapIterator<T>::increment() {
     return false;
 }
 
+template <class T>
+void MapIterator<T>::MapIteratorTests() {
+    failWithMessage(__FILE__,__LINE__,"assert statement");
+}
+
+template <class T>
+void MapIterator<T>::getIndexForTests() {
+    failWithMessage(__FILE__,__LINE__,"assert statement");
+}
+
+template <class T>
+void MapIterator<T>::getMapTests() {
+    failWithMessage(__FILE__,__LINE__,"assert statement");
+}
+
+template <class T>
+void MapIterator<T>::incrementTests() {
+    failWithMessage(__FILE__,__LINE__,"assert statement");
+}
 
 
 
