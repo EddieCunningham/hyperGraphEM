@@ -2,8 +2,10 @@
 #define HYPER_GRAPH_H
 
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/nodeIterator.h"
+#include "/Users/Eddie/hyperGraphEM/src/logVar/logVar.h"
 #include "/Users/Eddie/hyperGraphEM/src/messages/errorMessages.h"
 #include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
@@ -16,10 +18,33 @@ public:
     }
 };
 
+
 class Node;
 class Family;
 class DirectedAcyclicHypergraph;
 class NodeIterator;
+
+
+class NumberOfHiddenStatesGetter {
+public:
+    virtual unsigned operator()(Node* node) = 0;
+};
+
+class EmissionFunction {
+public:
+    virtual LogVar operator()(Node* node, unsigned x) = 0;
+};
+
+class TransitionFunction {
+public:
+    virtual LogVar operator()(Family* family, Node* child, const unordered_map<Node*,unsigned>& X, unsigned x) = 0;
+};
+
+class RootProbFunction {
+public:
+    virtual LogVar operator()(Node* node, unsigned x) = 0;
+};
+
 
 /* --------------------------------------- */
 

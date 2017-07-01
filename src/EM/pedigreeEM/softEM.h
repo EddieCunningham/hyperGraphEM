@@ -20,24 +20,28 @@ class PedigreeSoftEMOptimizer {
 
     vector<Pedigree*> _trainingSet;
 
-    unordered_map<int,vector<vector<double>>> _emissionProbs;
-    unordered_map<int,vector<vector<vector<double>>>> _transitionProbs;
+    unordered_map<unsigned,vector<vector<LogVar>>> _emissionProbs;
+    unordered_map<unsigned,vector<vector<vector<LogVar>>>> _transitionProbs;
+
+    pair<unsigned,unsigned> _getMotherFatherIndices(const unordered_map<Person*,unsigned>& parents);
 
     /* --------- E Step --------- */
     void _calculateABCValues();
 
     /* --------- M Step --------- */
     void _updateRootProbs();
+
     void _updateTransitionProbs();
+    
     void _updateEmissionProbs();
 
 public:
 
     PedigreeSoftEMOptimizer(vector<Pedigree*> trainingSet): _trainingSet(trainingSet){}
 
-    double getTransitionProb(Person* parentA, int a_x, Person* parentB, int b_x, Person* child, int x);
-    double getEmissionProb(Person* person, int i);
-    double getRootProb(Person* root, int i);
+    LogVar getTransitionProb(const unordered_map<Person*,unsigned>& parents, Person* child, unsigned x);
+    LogVar getEmissionProb(Person* person, unsigned x);
+    LogVar getRootProb(Pedigree* pedigree, Person* root, unsigned x);
 
     void EStep();
     void MStep();

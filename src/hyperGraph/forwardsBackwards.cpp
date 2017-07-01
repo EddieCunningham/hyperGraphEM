@@ -1,21 +1,6 @@
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/forwardsBackwards.h"
 
 
-MapIterator<Node*> FowrardsBackwards::_mapIteratorFromSet(const unordered_set<Node*>& nodes) {
-
-    unordered_map<Node*,unsigned> map = unordered_map<Node*,unsigned>();
-    unordered_map<Node*,unsigned> maxVals = unordered_map<Node*,unsigned>();
-
-    for(Node* node: nodes) {
-        unsigned n = (*_nHiddenStates)(node);
-        map.insert({node,0});
-        maxVals.insert({node,n});
-    }
-
-    MapIterator<Node*> mapIterator(map,maxVals);
-    return mapIterator;
-}
-
 
 bool nodeComp(const pair<Node*,unsigned>& a, const pair<Node*,unsigned>& b) {
     return a.first->id < b.first->id;
@@ -111,6 +96,15 @@ LogVar FowrardsBackwards::_calcProb(NodeIterator yNodes, const unordered_map<Nod
     // need a function to tell if a set of parents in conditioned nodes have ALL children in yNodes
 
 
+    // intersection of andedNodes and yNodes
+    // intersection of conditionedNodes and yNodes
+    // intersection of (andedNodes and conditionedNodes) and yNodes
+
+    uComponent;
+    alphaComponent;
+    betaComponent;
+    gammaComponent;
+
 
     return ans;
 }
@@ -155,7 +149,7 @@ LogVar FowrardsBackwards::getAValFor(Node* node, unsigned x) {
 
         unordered_set<Node*> parentsNotNode = family->getParents();
         parentsNotNode.erase(node);
-        MapIterator<Node*> parentsNotNode_xIterator = _mapIteratorFromSet(parentsNotNode);
+        MapIterator<Node*> parentsNotNode_xIterator = mapIteratorFromSet(parentsNotNode,_nHiddenStates);
 
         do {
 
@@ -252,7 +246,7 @@ LogVar FowrardsBackwards::getCValFor(Family* family, Node* child, const unordere
 
         unordered_set<Node*> parentsNotNode = otherFamily->getParents();
         parentsNotNode.erase(child);
-        MapIterator<Node*> parentsNotNode_xIterator = _mapIteratorFromSet(parentsNotNode);
+        MapIterator<Node*> parentsNotNode_xIterator = mapIteratorFromSet(parentsNotNode,_nHiddenStates);
 
         do {
 

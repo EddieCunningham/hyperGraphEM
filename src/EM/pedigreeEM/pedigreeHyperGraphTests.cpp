@@ -27,7 +27,6 @@ void Person::getShadingTests() {
 void Person::getSexTests() {
 
     PedigreeToPedigree pedigreeStruct("/Users/Eddie/kec-bot/app/pedigreeDataOLDBUTWORKS/1084LN.json");
-    Pedigree* pedigree = pedigreeStruct.getPedigree();
 
     Person* p13 = pedigreeStruct.getPerson(13);
     if(p13->getSex() != male) {
@@ -122,10 +121,10 @@ void Pedigree::getBValueTests() {
     Pedigree* pedigree = pedigreeStruct.getPedigree();
 
     Person* p_7 = pedigreeStruct.getPerson(7);
-    unordered_set<Family*> upFams = p_7->getUpFamilies();
+    unordered_set<NuclearFamily*> upFams = p_7->getUpFamilies();
     NuclearFamily* fam = (NuclearFamily*)(*(upFams.begin()));
 
-    unordered_set<Node*> parents = fam->getParents();
+    unordered_set<Person*> parents = fam->getParents();
     unordered_map<Person*,unsigned> X;
     for(Node* node: parents) {
         X.insert({(Person*)node,0});
@@ -139,7 +138,7 @@ void Pedigree::getBValueTests() {
     Person* p9 = pedigreeStruct.getPerson(9);
     fam = (NuclearFamily*)(*(p9->getUpFamilies().begin()));
 
-    unordered_set<Node*> parents2 = fam->getParents();
+    unordered_set<Person*> parents2 = fam->getParents();
     unordered_map<Person*,unsigned> X2;
     for(Node* node: parents2) {
         X2.insert({(Person*)node,0});
@@ -155,7 +154,7 @@ void Pedigree::getCValueTests() {
     Person* p_7 = pedigreeStruct.getPerson(7);
     NuclearFamily* fam = (NuclearFamily*)(*(p_7->getUpFamilies().begin()));
 
-    unordered_set<Node*> parents = fam->getParents();
+    unordered_set<Person*> parents = fam->getParents();
     unordered_map<Person*,unsigned> X;
     for(Node* node: parents) {
         X.insert({(Person*)node,0});
@@ -169,7 +168,7 @@ void Pedigree::getCValueTests() {
     Person* p9 = pedigreeStruct.getPerson(9);
     fam = (NuclearFamily*)(*(p9->getUpFamilies().begin()));
 
-    unordered_set<Node*> parents2 = fam->getParents();
+    unordered_set<Person*> parents2 = fam->getParents();
     unordered_map<Person*,unsigned> X2;
     for(Node* node: parents2) {
         X2.insert({(Person*)node,0});
@@ -180,7 +179,7 @@ void Pedigree::getCValueTests() {
     Person* p3 = pedigreeStruct.getPerson(3);
     fam = (NuclearFamily*)(*(p3->getUpFamilies().begin()));
 
-    unordered_set<Node*> parents3 = fam->getParents();
+    unordered_set<Person*> parents3 = fam->getParents();
     unordered_map<Person*,unsigned> X3;
     for(Node* node: parents3) {
         X3.insert({(Person*)node,0});
@@ -199,7 +198,7 @@ void Pedigree::getRootProbTests() {
 // sum over n_x = i in A = 1
 void test1(Pedigree* pedigree) {
     
-    unordered_set<Node*> nodes = pedigree->getAllNodes();
+    unordered_set<Person*> nodes = pedigree->getAllNodes();
     for(Node* node: nodes) {
         Person* person = (Person*)node;
         int n = person->getHiddenStatesN();
@@ -217,12 +216,12 @@ void test2(Pedigree* pedigree) {
 
     vector<unsigned> indices;
     vector<unsigned> maxVals;
-    unordered_set<Family*> families = pedigree->getAllFamilies();
+    unordered_set<NuclearFamily*> families = pedigree->getAllFamilies();
 
-    for(Family* family: families) {
+    for(NuclearFamily* family: families) {
 
         NuclearFamily* fam = (NuclearFamily*)family;
-        unordered_set<Node*> parents = fam->getParents();
+        unordered_set<Person*> parents = fam->getParents();
 
         unordered_map<Person*,unsigned> X;
         unordered_map<Person*,unsigned> XMaxVals;
@@ -250,13 +249,13 @@ void test3(Pedigree* pedigree) {
 
     vector<unsigned> indices;
     vector<unsigned> maxVals;
-    unordered_set<Family*> families = pedigree->getAllFamilies();
+    unordered_set<NuclearFamily*> families = pedigree->getAllFamilies();
 
     for(Family* family: families) {
 
         NuclearFamily* fam = (NuclearFamily*)family;
-        unordered_set<Node*> parents = fam->getParents();
-        unordered_set<Node*> children = fam->getChildren();
+        unordered_set<Person*> parents = fam->getParents();
+        unordered_set<Person*> children = fam->getChildren();
 
         for(Node* node: children) {
 
@@ -289,7 +288,7 @@ void test3(Pedigree* pedigree) {
 // sum over i in root probs = 1
 void test4(Pedigree* pedigree) {
 
-    unordered_set<Node*> nodes = pedigree->getAllNodes();
+    unordered_set<Person*> nodes = pedigree->getAllNodes();
     for(Node* node: nodes) {
 
         Person* person = (Person*)node;
@@ -339,7 +338,7 @@ void Pedigree::PedigreeTests() {
     Pedigree::updateRootProbsTests();
     Pedigree::getRootProbTests();
 
-    allPedigreeEMTests();
+    // allPedigreeEMTests();
 
 }
 

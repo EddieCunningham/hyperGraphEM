@@ -4,7 +4,23 @@
 #include <unordered_map>
 #include <vector>
 #include "/Users/Eddie/hyperGraphEM/src/messages/errorMessages.h"
+//#include "/Users/Eddie/hyperGraphEM/src/EM/pedigreeEM/pedigreeHyperGraph.h"
+#include "/Users/Eddie/hyperGraphEM/src/hyperGraph/hyperGraph.h"
+#include "/Users/Eddie/hyperGraphEM/src/hyperGraph/forwardsBackwards.h"
+
 using namespace std;
+
+
+class NodeIterator;
+template <class T>
+class MapIterator;
+class Node;
+class Person;
+class NumberOfHiddenStatesGetter;
+
+MapIterator<Node*> mapIteratorFromSet(const unordered_set<Node*>& nodes, NumberOfHiddenStatesGetter* nHiddenStates);
+MapIterator<Person*> mapIteratorFromSet(const unordered_set<Person*>& nodes);
+
 
 class NestedLoop {
 public:

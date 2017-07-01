@@ -13,25 +13,6 @@ class NuclearFamily;
 class Pedigree;
 class PedigreeSoftEMOptimizer;
 
-class NumberOfHiddenStatesGetter {
-public:
-    virtual unsigned operator()(Node* node) = 0;
-};
-
-class EmissionFunction {
-public:
-    virtual LogVar operator()(Node* node, unsigned x) = 0;
-};
-
-class TransitionFunction {
-public:
-    virtual LogVar operator()(Family* family, Node* child, const unordered_map<Node*,unsigned>& X, unsigned x) = 0;
-};
-
-class RootProbFunction {
-public:
-    virtual LogVar operator()(Node* node, unsigned x) = 0;
-};
 
 // will calculate P(Y) for subraphs of dah
 class FowrardsBackwards {
@@ -44,10 +25,6 @@ class FowrardsBackwards {
     RootProbFunction* _rootProbFunc;
 
     unordered_map<string,LogVar> _storedAnswers;
-
-    /* -------------- */
-
-    MapIterator<Node*> _mapIteratorFromSet(const unordered_set<Node*>& nodes);
 
     /* -------------- */
 

@@ -8,8 +8,8 @@ class PedigreeParseTester {
     PedigreeAllocator _pedigreeAllocator;
     Pedigree* _dah;
 
-    void _checkResult(const vector<Node*>& people, unordered_set<int>& expected);
-    void _checkResult(const unordered_set<Node*>& people, unordered_set<int>& expected);
+    void _checkResult(const vector<Person*>& people, unordered_set<int>& expected);
+    void _checkResult(const unordered_set<Person*>& people, unordered_set<int>& expected);
     void _checkResult(NodeIterator& returned, unordered_set<int> expected);
 
     Person* _getPerson(int id) {return _pedigreeAllocator.getPerson(id);}
@@ -26,9 +26,9 @@ public:
     void checkIteratorFunctionsNot1084LN();
 };
 
-void PedigreeParseTester::_checkResult(const unordered_set<Node*>& people, unordered_set<int>& expected) {
+void PedigreeParseTester::_checkResult(const unordered_set<Person*>& people, unordered_set<int>& expected) {
 
-    for(Node* person: people) {
+    for(Person* person: people) {
         int id = person->id;
         if(expected.find(id) == expected.end()) {
             failWithMessage(__FILE__,__LINE__,"This person should not be here! ("+to_string(id)+")");
@@ -40,7 +40,7 @@ void PedigreeParseTester::_checkResult(const unordered_set<Node*>& people, unord
     }
 }
 
-void PedigreeParseTester::_checkResult(const vector<Node*>& people, unordered_set<int>& expected) {
+void PedigreeParseTester::_checkResult(const vector<Person*>& people, unordered_set<int>& expected) {
 
     for(Node* person: people) {
         int id = person->id;
@@ -143,7 +143,7 @@ void PedigreeParseTester::checkAllPeopleThere() {
 
     unordered_set<int> expected({i_1,i_2,i_3,i_4,i_5,i_6,i_7,i_8,i_9,i_10,i_11,i_12,i_13,i_14,i_15,i_16,i_17,i_18,i_19,i_20,i_21,i_22,i_32,i_33,i_34,i_35,i_36,i_37,i_38,i_39,i_40,i_41,i_42,i_43,i_44,i_45,i_46,i_47,i_48,i_49,i_50,i_51,i_52,i_53,i_54,i_55,i_56,i_57,i_58,i_602,i__1,i__4,i__10,i__13,i__16,i__19,i__23,i__27,i__31,i__34,i__37,i__40,i__7,i__43,i__46,i__49,i__53,i__74});
 
-    unordered_set<Node*> allPeople = _dah->getAllNodes();
+    unordered_set<Person*> allPeople = _dah->getAllNodes();
     _checkResult(allPeople,expected);
 }
 
@@ -156,7 +156,7 @@ void PedigreeParseTester::checkFamilyCreation() {
     Person* child_32 = _getPerson(32);
     Person* child_3 = _getPerson(3);
 
-    unordered_set<Node*> children = _dah->getChildren(parent_1);
+    unordered_set<Person*> children = _dah->getChildren(parent_1);
     unordered_set<int> expected = unordered_set<int>({32,13,12,11,10,9,8,7,6,5,4,3});
     _checkResult(children,expected);
     
@@ -164,7 +164,7 @@ void PedigreeParseTester::checkFamilyCreation() {
     expected = unordered_set<int>({32,13,12,11,10,9,8,7,6,5,4,3});
     _checkResult(children,expected);
     
-    unordered_set<Node*> parents = _dah->getParents(child_32);
+    unordered_set<Person*> parents = _dah->getParents(child_32);
     expected = unordered_set<int>({1,2});
     _checkResult(parents,expected);
     
@@ -191,8 +191,8 @@ void PedigreeParseTester::checkFamilyCreation() {
 void PedigreeParseTester::checkFamilyCreationNot1084LN() {
 
     unordered_set<int> expected;
-    unordered_set<Node*> children;
-    unordered_set<Node*> parents;
+    unordered_set<Person*> children;
+    unordered_set<Person*> parents;
 
     Person* child_7 = _getPerson(7);
     parents = _dah->getParents(child_7);
@@ -207,8 +207,8 @@ void PedigreeParseTester::checkFamilyCreationNot1084LN() {
 
 void PedigreeParseTester::checkFamilyFunctionsNot1084LN() {
     unordered_set<int> expected;
-    unordered_set<Node*> nodes;
-    unordered_set<Family*> families;
+    unordered_set<Person*> nodes;
+    unordered_set<NuclearFamily*> families;
     
     Person* p_4 = _getPerson(4);
     families = _dah->getFamilies(p_4);
@@ -221,7 +221,7 @@ void PedigreeParseTester::checkFamilyFunctionsNot1084LN() {
     if(families.size() != 1) {
         failWithMessage(__FILE__,__LINE__,"Wrong number of families");
     }
-    Family* fam = *(families.begin());
+    NuclearFamily* fam = *(families.begin());
     nodes = _dah->getNodesInFamily(fam);
     expected = unordered_set<int>({5,21,22,23});
     _checkResult(nodes,expected);
@@ -237,8 +237,8 @@ void PedigreeParseTester::checkFamilyFunctionsNot1084LN() {
 
 void PedigreeParseTester::checkIteratorFunctionsNot1084LN() {
 
-    unordered_set<Node*> nodes;
-    unordered_set<Family*> families;
+    unordered_set<Person*> nodes;
+    unordered_set<NuclearFamily*> families;
     NodeIterator result;
     unordered_set<int> expected;
 
@@ -253,7 +253,7 @@ void PedigreeParseTester::checkIteratorFunctionsNot1084LN() {
     if(families.size() != 1) {
         failWithMessage(__FILE__,__LINE__,"Wrong number of families");
     }
-    Family* fam = *(families.begin());
+    NuclearFamily* fam = *(families.begin());
 
     result = _dah->getAllFromFamilyExceptFromNode(fam,p_3,false);
     expected = unordered_set<int>({24,25});

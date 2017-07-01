@@ -80,11 +80,15 @@ public:
 
     Person(int id, Data* data);
 
-    Allele getAllele();
     Shading getShading();
     Sex getSex();
     int getHiddenStatesN();
     int getObservedStatesN();
+    static unordered_set<Person*> nodeToPerson(const unordered_set<Node*>& nodeSet);
+
+    unordered_set<NuclearFamily*> getUpFamilies() const;
+    unordered_set<NuclearFamily*> getDownFamilies() const;
+    unordered_set<NuclearFamily*> getFamilies() const;
 
     /* TESTS */
     static void PersonTests();
@@ -99,6 +103,11 @@ class NuclearFamily : public Family {
 public:
 
     NuclearFamily(int id, unordered_set<Person*> parents, unordered_set<Person*> children): Family(id,unordered_set<Node*>(parents.begin(),parents.end()),unordered_set<Node*>(children.begin(),children.end())) {}
+    static unordered_set<NuclearFamily*> familyToNuclearFamily(const unordered_set<Family*>& famSet);
+
+    unordered_set<Person*> getParents() const;
+    unordered_set<Person*> getChildren() const;
+    unordered_set<Person*> getNodes() const;
 
     /* TESTS */
     static void NuclearFamilyTests();
@@ -135,6 +144,19 @@ public:
 
     void updateRootProb(Person* root, int x, LogVar val);
     LogVar getRootProb(Person* root, int x);
+    unordered_map<Person*,vector<LogVar>> getRootProbs();
+
+
+    unordered_set<Person*> getAllNodes() const;
+    unordered_set<NuclearFamily*> getAllFamilies() const;
+    unordered_set<Person*> getParents(Person* node) const;
+    unordered_set<Person*> getChildren(Person* node) const;
+    unordered_set<NuclearFamily*> getFamilies(Person* node) const;
+    unordered_set<NuclearFamily*> getFamiliesIfParent(Person* node) const;
+    unordered_set<NuclearFamily*> getFamiliesIfChild(Person* node) const;
+    unordered_set<Person*> getNodesInFamily(NuclearFamily* family) const;
+    unordered_set<Person*> getParents(NuclearFamily* family) const;
+    unordered_set<Person*> getChildren(NuclearFamily* family) const;
 
     /* TESTS */
     static void PedigreeTests();
