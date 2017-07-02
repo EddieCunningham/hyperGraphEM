@@ -4,7 +4,6 @@
 #include <unordered_map>
 #include <vector>
 #include "/Users/Eddie/hyperGraphEM/src/messages/errorMessages.h"
-//#include "/Users/Eddie/hyperGraphEM/src/EM/pedigreeEM/pedigreeHyperGraph.h"
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/hyperGraph.h"
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/forwardsBackwards.h"
 

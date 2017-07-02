@@ -40,8 +40,18 @@ class FowrardsBackwards {
 
     /* -------------- */
 
-    LogVar _calcProb(NodeIterator iterator, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes);
-    LogVar _getValue(NodeIterator yNodes, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes);
+    LogVar _alphaHelper(Node* node, unsigned x, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes, const LoopHandler& loopHandler);
+    LogVar _betaHelper(Node* node, const unordered_map<Node*,unsigned>& parentMapping, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes, const LoopHandler& loopHandler);
+
+    /* -------------- */
+
+    LogVar _uCase(const NodeIterator& yNodes, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes);
+    LogVar _vCase(const NodeIterator& yNodes, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes);
+
+    /* -------------- */
+
+    LogVar _calcProb(const NodeIterator& yNodes, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes);
+    LogVar _getValue(const NodeIterator& yNodes, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes);
 
 public:
     FowrardsBackwards(DirectedAcyclicHypergraph* dah, NumberOfHiddenStatesGetter* nHiddenStates, EmissionFunction* emissionFunc,TransitionFunction* transitionFunc,RootProbFunction* rootProbFunc) :

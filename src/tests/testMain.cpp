@@ -26,6 +26,7 @@ void allTests() {
     DirectedAcyclicHypergraph::DirectedAcyclicHypergraphTests();
     HyperGraphAllocator::HyperGraphAllocatorTests();
     NodeIterator::NodeIteratorTests();
+    LoopHandler::LoopHandlerTests();
     LogVar::LogVarTests();
     PedigreeAllocator::PedigreeAllocatorTests();
     PedigreeParser::PedigreeParserTests();

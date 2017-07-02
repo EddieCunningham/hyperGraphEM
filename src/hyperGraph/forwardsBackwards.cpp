@@ -69,43 +69,181 @@ LogVar FowrardsBackwards::_leafBaseCase(const unordered_map<Node*,unsigned>& and
     return ans;
 }
 
-LogVar FowrardsBackwards::_calcProb(NodeIterator yNodes, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes) {
+/* ------------------------------------------------ */
+
+
+LogVar FowrardsBackwards::_alphaHelper(Node* node, unsigned x, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes, const LoopHandler& loopHandler) {
     LogVar ans;
 
-    // branch over mates, parents, siblings, children
-    // use node iterator to figure out if there is a cycle
-    // this means implementing an == operator in node iterator
+    
 
-    // is there a way to know what to calculate based only on 
-    // whats in anded nodes and in conditioned nodes?
+    return ans;
+}
 
-
-    // anded -> sum over parents
-    // conditioned -> sum over node corresponding to node iterator
+LogVar FowrardsBackwards::_betaHelper(Node* node, const unordered_map<Node*,unsigned>& parentMapping, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes, const LoopHandler& loopHandler) {
+    LogVar ans;
 
 
-    // seems like for a node in the anded nodes AND yNodes, knowing which families are in the yNodes
-    // can help determine how to make calculations
 
-    // for a set of nodes in conditioned nodes with any children in yNodes, can split that sub problem up
-
-    // for a node with in conditioned nodes with children in yNodes, can split dat bitch up
-
-    // need function to tell if node in anded nodes is in yNodes and return which families are in yNodes
-
-    // need a function to tell if a set of parents in conditioned nodes have ALL children in yNodes
+    return ans;
+}
 
 
-    // intersection of andedNodes and yNodes
-    // intersection of conditionedNodes and yNodes
-    // intersection of (andedNodes and conditionedNodes) and yNodes
-
-    uComponent;
-    alphaComponent;
-    betaComponent;
-    gammaComponent;
 
 
+/* ------------------------------------------------ */
+
+LogVar FowrardsBackwards::_uCase(const NodeIterator& yNodes, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes) {
+    LogVar ans;
+
+    Node* child = yNodes.getCurrent();
+    unsigned x = andedNodes.at(child);
+    unordered_set<Family*> nextFamilies = yNodes.getQueuedFamilies();
+
+    if(nextFamilies.size() == 0) {
+        return _rootBaseCase(child,andedNodes,conditionedNodes);
+    }
+    if(nextFamilies.size() != 1) {
+        failWithMessage(__FILE__,__LINE__,"Shouldn't have more than one family!");
+    }
+
+    LoopHandler loopHandler = LoopHandler(yNodes,false);
+
+    unordered_map<Node*,unsigned> newAndedNodes = andedNodes;
+    newAndedNodes.erase(child);
+
+    Family* family = *(nextFamilies.begin());
+    unordered_set<Node*> parents = family->getParents();
+    unordered_set<Node*> children = family->getChildren();
+    MapIterator<Node*> X = mapIteratorFromSet(parents,_nHiddenStates);
+
+    LogVar emissionProb = _emissionFunc(child,x);
+
+    do {
+
+        LogVar transitionProb = _transitionFunc(family,child,X,x);
+        if(transitionProb == 0.0) {
+            continue;
+        }
+        unordered_map<Node*,unsigned> parentMapping = X.getMap();
+
+        LogVar alphaProd;
+        alphaProd = 1.0;
+
+        for(auto& parentIndex: parentMapping) {
+            Node* parentNode = parentIndex.first;
+            unsigned j = parentIndex.second;
+
+            LogVar alpha;
+            alpha = _alphaHelper(parentNode,j,newAndedNodes,conditionedNodes,loopHandler);
+            alphaProd *= alpha;
+        }
+        if(alphaProd == 0.0) {
+            continue;
+        }
+
+        LogVar betaProd;
+        betaProd = 1.0;
+
+        for(Node* sibling: children) {
+            if(sibling == child) {
+                continue;
+            }
+            LogVar beta;
+            beta = _betaHelper(sibling,parentMapping,newAndedNodes,conditionedNodes,loopHandler);
+            betaProd *= beta;
+        }
+
+        ans += transitionProb*alphaProd*betaProd;
+
+    } while(X.increment());
+
+    ans *= emissionProb;
+
+    return ans;
+}
+LogVar FowrardsBackwards::_vCase(const NodeIterator& yNodes, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes) {
+    LogVar ans;
+
+    Family* currentFamily = yNodes.getFamilyAddedFrom();
+    if(currentFamily == nullptr) {
+        failWithMessage(__FILE__,__LINE__,"Dont think this can happen");
+    }
+
+    LoopHandler loopHandler = LoopHandler(yNodes,true);
+
+    unordered_set<Node*> children = currentFamily->getChildren();
+
+    unordered_map<Node*,int> conditionedParents = conditionedNodes;
+    unordered_map<Node*,int> newConditionedNodes = conditionedNodes;
+    for(auto& nodePair: conditionedNodes) {
+
+        Node* potentialParent = nodePair.first;
+        unsigned index = nodePair.second;
+        unordered_set<Family*> downFamilies = potentialParent->getDownFamilies();
+
+        if(downFamilies.find(currentFamily) == downFamilies.end()) {
+            conditionedParents.erase(potentialParent);
+            newConditionedNodes.insert(nodePair);
+        }
+    }
+
+    unordered_set<Node*> unconditionedParents = currentFamily->getParents();
+    for(auto& nodePair: conditionedParents) {
+        Node* parent = nodePair.first;
+        unconditionedParents.erase(parent);
+    }
+
+    MapIterator<Node*> X_ = mapIteratorFromSet(unconditionedParents,_nHiddenStates);
+
+    do {
+
+        unordered_map<Node*,unsigned> parentMapping = X_.getMap();
+
+        LogVar alphaProd;
+        alphaProd = 1.0;
+
+        for(auto& parentIndex: parentMapping) {
+            Node* parentNode = parentIndex.first;
+            unsigned j = parentIndex.second;
+
+            LogVar alpha;
+            alpha = _alphaHelper(parentNode,j,andedNodes,newConditionedNodes,loopHandler);
+            alphaProd *= alpha;
+        }
+        if(alphaProd == 0.0) {
+            continue;
+        }
+
+        LogVar betaProd;
+        betaProd = 1.0;
+
+        for(Node* child: children) {
+            LogVar beta;
+            beta = _betaHelper(child,parentMapping,andedNodes,newConditionedNodes,loopHandler);
+            betaProd *= beta;
+        }
+
+        ans += alphaProd*betaProd;
+
+    } while(X_.increment());
+
+    return ans;
+}
+
+/* ------------------------------------------------ */
+
+LogVar FowrardsBackwards::_calcProb(const NodeIterator& yNodes, const unordered_map<Node*,unsigned>& andedNodes, const unordered_map<Node*,unsigned>& conditionedNodes) {
+    
+    LogVar ans;
+    Node* current = yNodes.getCurrent();
+
+    if(andedNodes.find(current) != andedNodes.end()) {
+        ans = _uCase(yNodes,andedNodes,conditionedNodes);
+    }
+    else {
+        ans = _vCase(yNodes,andedNodes,conditionedNodes);
+    }
     return ans;
 }
 

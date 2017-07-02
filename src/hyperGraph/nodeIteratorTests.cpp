@@ -20,6 +20,10 @@ void NodeIterator::getCurrentTests() {
     failWithMessage(__FILE__,__LINE__,"assert statement");
 }
 
+void NodeIterator::getFamilyAddedFromTests() {
+    failWithMessage(__FILE__,__LINE__,"assert statement");
+}
+
 void NodeIterator::nextTests() {
     failWithMessage(__FILE__,__LINE__,"assert statement");
 }
@@ -33,5 +37,13 @@ void NodeIterator::toSetTests() {
 }
 
 void NodeIterator::getHashTests() {
+    failWithMessage(__FILE__,__LINE__,"assert statement");
+}
+
+void LoopHandler::LoopHandlerTests() {
+    failWithMessage(__FILE__,__LINE__,"assert statement");
+}
+
+void LoopHandler::getDependentNodesTests() {
     failWithMessage(__FILE__,__LINE__,"assert statement");
 }

@@ -1,7 +1,11 @@
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/nodeIterator.h"
 
+NodeIterator NodeIterator::nodeIteratorFromOtherAndDirection(Node* node, Family* startFam, const NodeIterator& other, bool keepFirstNode = false) {
+    return NodeIterator(unordered_set<Node*>({node}),unordered_set<Family*>({startFam}),other.getFamiliesToSkip(),keepFirstNode);
+}
 
-NodeIterator::NodeIterator(const queue<Node*>& q, const unordered_set<Family*>& startFams, const unordered_set<Family*>& famsToSkip, bool keepFirstNode): 
+
+NodeIterator::NodeIterator(const queue<pair<Node*,Family*>>& q, const unordered_set<Family*>& startFams, const unordered_set<Family*>& famsToSkip, bool keepFirstNode): 
 _queue(q) {
 
     _famsToBranchToFromCurrent = unordered_set<Family*>();
@@ -23,9 +27,10 @@ NodeIterator::NodeIterator(const unordered_set<Node*>& v, const unordered_set<Fa
     _visitedFamilies = unordered_set<Family*>();
     _visitedFamilies.insert(famsToSkip.begin(),famsToSkip.end());
 
-    _queue = queue<Node*>();
+    _queue = queue<pair<Node*,Family*>>();
     for(Node* node: v) {
-        _queue.push(node);
+        pair<Node*,Family*> adding(node,nullptr);
+        _queue.push(adding);
     }
 
     if(!keepFirstNode) {
@@ -40,15 +45,26 @@ void NodeIterator::operator =(const NodeIterator& other) {
 }
 
 
-Node* NodeIterator::_getFront() const {
+Node* NodeIterator::_getFrontNode() const {
     if(_queue.size() == 0) {
         return nullptr;
     }
-    return _queue.front();
+    return _queue.front().first;
+}
+
+Family* NodeIterator::_getFrontFamily() const {
+    if(_queue.size() == 0) {
+        return nullptr;
+    }
+    return _queue.front().second;
 }
 
 Node* NodeIterator::getCurrent() const {
-    return _getFront();
+    return _getFrontNode();
+}
+
+Family* NodeIterator::getFamilyAddedFrom() const {
+    return _getFrontFamily();
 }
 
 void NodeIterator::_addFamilyFromNode(Family* f, Node* n) {
@@ -67,7 +83,8 @@ void NodeIterator::_addFamilyFromNode(Family* f, Node* n) {
         if(foundFlag || node == n) {
             continue;
         }
-        _queue.push(node);
+        pair<Node*,Family*> adding(node,f);
+        _queue.push(adding);
     }
 }
 
@@ -75,7 +92,7 @@ void NodeIterator::_findWhereCurrentWillBranchTo() {
 
     _famsToBranchToFromCurrent = unordered_set<Family*>();
 
-    Node* currentNode = _getFront();
+    Node* currentNode = _getFrontNode();
     if(currentNode == nullptr) {
         return;
     }
@@ -91,7 +108,7 @@ void NodeIterator::_findWhereCurrentWillBranchTo() {
 Node* NodeIterator::next() {
     // returns nullptr when at end
 
-    Node* lastNode = _getFront();
+    Node* lastNode = _getFrontNode();
     if(lastNode == nullptr) {
         return nullptr;
     }
@@ -104,12 +121,16 @@ Node* NodeIterator::next() {
 
     _findWhereCurrentWillBranchTo();
 
-    return _getFront();
+    return _getFrontNode();
 
 }
 
 unordered_set<Family*> NodeIterator::getQueuedFamilies() const {
     return _famsToBranchToFromCurrent;
+}
+
+unordered_set<Family*> NodeIterator::getFamiliesToSkip() const {
+    return _visitedFamilies();
 }
 
 unordered_set<Node*> NodeIterator::toSet() const {
@@ -152,14 +173,14 @@ string NodeIterator::_hash1() const {
 string NodeIterator::_hash2() const {
 
     // only need to store the initial queue and the initial visited families
-    queue<Node*> queueCopy = _queue;
+    queue<pair<Node*,Family*>> queueCopy = _queue;
     unordered_set<Family*> visitedFamiliesCopy = _visitedFamilies;
     unordered_set<Family*> famsToBranchToCopy = _famsToBranchToFromCurrent;
 
 
     vector<int> initialQueueIds = vector<int>();
     while(!queueCopy.empty()) {
-        Node* node = queueCopy.front();
+        Node* node = queueCopy.front().first;
         initialQueueIds.push_back(node->id);
         queueCopy.pop();
     }
