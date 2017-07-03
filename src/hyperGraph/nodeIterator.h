@@ -37,7 +37,7 @@ public:
         _famsToBranchToFromCurrent = unordered_set<Family*>();
         _visitedFamilies = unordered_set<Family*>();
     }
-    NodeIterator(const queue<Node*>& q, const unordered_set<Family*>& startFams, const unordered_set<Family*>& famsToSkip, bool keepFirstNode = false);
+    NodeIterator(const queue<pair<Node*,Family*>>& q, const unordered_set<Family*>& startFams, const unordered_set<Family*>& famsToSkip, bool keepFirstNode = false);
     NodeIterator(const unordered_set<Node*>& v, const unordered_set<Family*>& startFams, const unordered_set<Family*>& famsToSkip, bool keepFirstNode = false);
     void operator =(const NodeIterator& other);
     Node* getCurrent() const;
@@ -77,7 +77,7 @@ public:
         _analyzeDependencies();
     }
 
-    unordered_set<Node*> getDependentNodes(Node* node);
+    vector<Node*> getDependentNodes(Node* node);
 
     /* TESTS */
     static void LoopHandlerTests();

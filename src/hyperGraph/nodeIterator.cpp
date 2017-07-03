@@ -1,6 +1,6 @@
 #include "/Users/Eddie/hyperGraphEM/src/hyperGraph/nodeIterator.h"
 
-NodeIterator NodeIterator::nodeIteratorFromOtherAndDirection(Node* node, Family* startFam, const NodeIterator& other, bool keepFirstNode = false) {
+NodeIterator NodeIterator::nodeIteratorFromOtherAndDirection(Node* node, Family* startFam, const NodeIterator& other, bool keepFirstNode) {
     return NodeIterator(unordered_set<Node*>({node}),unordered_set<Family*>({startFam}),other.getFamiliesToSkip(),keepFirstNode);
 }
 
@@ -130,7 +130,7 @@ unordered_set<Family*> NodeIterator::getQueuedFamilies() const {
 }
 
 unordered_set<Family*> NodeIterator::getFamiliesToSkip() const {
-    return _visitedFamilies();
+    return _visitedFamilies;
 }
 
 unordered_set<Node*> NodeIterator::toSet() const {
